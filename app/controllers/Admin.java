@@ -4,8 +4,8 @@ import models.User;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
-import views.html.index;
 import views.html.login;
+import views.html.admin;
 
 import static play.data.Form.form;
 
@@ -22,11 +22,15 @@ public class Admin extends Controller {
         public String password;
 
         public String validate() {
+            // TODO: Change implementation here when we have database
 //            if(User.authenticate(email, password) == null) {
 //                return "Invalid user or password";
 //            }
-            // TODO: Change implementation here when we have database
-            return null;
+            if(password.equalsIgnoreCase("password"))
+            {
+                return null;
+            }
+            return "Invalid user or password";
         }
 
     }
@@ -39,6 +43,13 @@ public class Admin extends Controller {
     }
 
     /**
+     * Admin page.
+     */
+    public static Result admin() {
+        return ok(admin.render("Success!"));
+    }
+
+    /**
      * Handle login form submission.
      */
     public static Result authenticate() {
@@ -47,9 +58,7 @@ public class Admin extends Controller {
             return badRequest(login.render(loginForm));
         } else {
             session("email", loginForm.get().email);
-            return redirect(
-                    routes.Application.index()
-            );
+            return redirect(routes.Application.index());
         }
     }
 
