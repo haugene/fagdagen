@@ -1,6 +1,7 @@
 package models;
 
 import play.data.validation.Constraints;
+import play.db.ebean.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,7 +12,7 @@ import javax.persistence.Id;
  * @author kristian.haugene
  */
 @Entity
-public class Presentation {
+public class Presentation extends Model {
 
     @Id
     public Long id;

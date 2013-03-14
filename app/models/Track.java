@@ -2,6 +2,7 @@ package models;
 
 import play.data.format.Formats;
 import play.data.validation.Constraints;
+import play.db.ebean.Model;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -14,7 +15,7 @@ import java.util.List;
  * @author kristian.haugene
  */
 @Entity
-public class Track {
+public class Track extends Model {
 
     @Id
     public Long id;
