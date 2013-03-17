@@ -20,7 +20,7 @@ public class Track extends Model {
     @Id
     public Long id;
 
-    // Each track should have a name
+    // Each track should have a namae
     @Constraints.Required
     public String name;
 
@@ -31,15 +31,6 @@ public class Track extends Model {
     // Presentations for this Track
     @OneToMany(mappedBy="track", cascade= CascadeType.ALL)
     public List<Presentation> presentations;
-
-    public static Model.Finder<String,Track> find = new Model.Finder(String.class, Track.class);
-
-    /**
-     * Retrieve all tracks.
-     */
-    public static List<Track> findAll() {
-        return find.all();
-    }
 
     /**
      * Retrieve relative rank compared to other tracks
@@ -56,6 +47,27 @@ public class Track extends Model {
         }
 
         return relativeRank;
+    }
+
+    // Create Finder for Track objects
+    public static Model.Finder<String, Track> find = new Model.Finder(String.class, Track.class);
+
+    // -- Queries
+    /**
+     * Retrieve all tracks.
+     */
+    public static List<Track> findAll() {
+
+        List<Track> tracks = find.all();
+
+        Collections.sort(tracks, new Comparator<Track>() {
+            @Override
+            public int compare(Track track, Track track2) {
+                return track.rank.compareTo(track2.rank);
+            }
+        });
+
+        return tracks;
     }
 
 }
