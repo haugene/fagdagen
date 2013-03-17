@@ -22,15 +22,12 @@ public class Admin extends Controller {
         public String password;
 
         public String validate() {
-            // TODO: Change implementation here when we have database
-//            if(User.authenticate(email, password) == null) {
-//                return "Invalid user or password";
-//            }
-            if(password.equalsIgnoreCase("password"))
-            {
-                return null;
+            if(User.authenticate(username, password) == null) {
+                return "Invalid user or password";
             }
-            return "Invalid user or password";
+
+            // Success
+            return null;
         }
 
     }

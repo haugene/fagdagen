@@ -39,25 +39,46 @@ public class User extends Model {
     /**
      * Retrieve a User from email.
      */
-    public static User findByUsername(String username) {
+    public static User findByUsername(String username)
+    {
         return find.where().eq("username", username).findUnique();
     }
 
     /**
      * Authenticate a User.
      */
-    public static User authenticate(String username, String password) {
+    public static User authenticate(String username, String password)
+    {
+        // Simply add the first user to login. We only have one admin, simple!
+        addUserIfNoUsersExist(username, password);
+
         return find.where()
                 .eq("username", username)
                 .eq("password", password)
                 .findUnique();
     }
 
-    // --
-
     public String toString() {
         return "User(" + username + ")";
     }
 
+    /**
+     * We decided that we didn't want a signup page and decided to do the user administration simple.
+     * The first time a user logs in, that user is created. We only need one user(ie admin),
+     * and from that point all logins are verified towards this user.
+     *
+     * @param username
+     * @param password
+     */
+    private static void addUserIfNoUsersExist(String username, String password)
+    {
+        // If no user exist, add this one
+        if(findAll().isEmpty()){
+            User user = new User();
+            user.username = username;
+            user.password = password;
+            user.save();
+        }
+    }
 }
 
