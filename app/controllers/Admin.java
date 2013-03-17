@@ -18,7 +18,7 @@ public class Admin extends Controller {
 
     public static class Login {
 
-        public String email;
+        public String username;
         public String password;
 
         public String validate() {
@@ -57,7 +57,7 @@ public class Admin extends Controller {
         if(loginForm.hasErrors()) {
             return badRequest(login.render(loginForm));
         } else {
-            session("email", loginForm.get().email);
+            session("username", loginForm.get().username);
             return redirect(routes.Application.index());
         }
     }
