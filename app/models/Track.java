@@ -23,7 +23,7 @@ public class Track extends Model {
     @Constraints.Required
     public String location;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.PERSIST)
     public List<Presentation> presentations;
 
 }
