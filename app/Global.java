@@ -1,5 +1,5 @@
 import com.avaje.ebean.Ebean;
-import models.User;
+import models.Track;
 import play.Application;
 import play.GlobalSettings;
 import play.libs.Yaml;
@@ -16,14 +16,11 @@ public class Global extends GlobalSettings {
     static class InitialData {
         
         public static void insert(Application app) {
-            if(Ebean.find(User.class).findRowCount() == 0) {
+            if(Ebean.find(Track.class).findRowCount() == 0) {
                 
                 Map<String,List<Object>> all = (Map<String,List<Object>>)Yaml.load("initial-data.yml");
 
-                // Insert users first
-                Ebean.save(all.get("users"));
-
-                // Then insert Tracks
+                // insert Tracks
                 Ebean.save(all.get("tracks"));
 
             }

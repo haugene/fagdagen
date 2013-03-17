@@ -1,13 +1,3 @@
-
-# Users
-
-users:
-
-    - !!models.User
-        username:   admin
-        password:   password
-
-
 # Tracks
 
 tracks:
