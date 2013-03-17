@@ -25,10 +25,10 @@ public class User extends Model {
     @Constraints.Required
     public String password;
 
-    // -- Queries
-
+    // Create Finder for User objects
     public static Model.Finder<String,User> find = new Model.Finder(String.class, User.class);
 
+    // -- Queries
     /**
      * Retrieve all users.
      */
@@ -58,6 +58,8 @@ public class User extends Model {
                 .findUnique();
     }
 
+
+    // - Helpers
     public String toString() {
         return "User(" + username + ")";
     }
