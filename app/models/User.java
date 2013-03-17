@@ -17,12 +17,10 @@ import com.avaje.ebean.*;
 public class User extends Model {
 
     @Id
-    @Constraints.Required
-    @Formats.NonEmpty
-    public String email;
+    public Long id;
 
     @Constraints.Required
-    public String name;
+    public String username;
 
     @Constraints.Required
     public String password;
@@ -41,16 +39,16 @@ public class User extends Model {
     /**
      * Retrieve a User from email.
      */
-    public static User findByEmail(String email) {
-        return find.where().eq("email", email).findUnique();
+    public static User findByUsername(String username) {
+        return find.where().eq("username", username).findUnique();
     }
 
     /**
      * Authenticate a User.
      */
-    public static User authenticate(String email, String password) {
+    public static User authenticate(String username, String password) {
         return find.where()
-                .eq("email", email)
+                .eq("username", username)
                 .eq("password", password)
                 .findUnique();
     }
@@ -58,7 +56,7 @@ public class User extends Model {
     // --
 
     public String toString() {
-        return "User(" + email + ")";
+        return "User(" + username + ")";
     }
 
 }

@@ -20,10 +20,16 @@ public class Track extends Model {
     @Id
     public Long id;
 
+    // Each track should have a namae
     @Constraints.Required
-    public String location;
+    public String name;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    // Each track has a rank that allows us to place it correctly
+    @Constraints.Required
+    public Long rank;
+
+    // Presentations for this Track
+    @OneToMany(mappedBy="track", cascade= CascadeType.ALL)
     public List<Presentation> presentations;
 
 }
