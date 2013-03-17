@@ -1,0 +1,25 @@
+
+# Users
+
+users:
+
+    - !!models.User
+        username:   admin
+        password:   password
+
+
+# Tracks
+
+tracks:
+
+    - !!models.Track
+        name:   Tor 5
+        rank:   1
+
+    - !!models.Track
+        name:   Frøya 5
+        rank:   5
+
+    - !!models.Track
+        name:   Wherever 1337
+        rank:   10
