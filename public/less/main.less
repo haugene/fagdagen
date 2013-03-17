@@ -2,6 +2,7 @@
 @import "colors.less";
 @import "constants.less";
 @import "textresources.less";
+@import "tracks.less";
 
 body {
   background-color: @background;
@@ -15,40 +16,9 @@ body {
 }
 
 .shadow {
-  -webkit-box-shadow: 0px 3px 20px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow:    0px 3px 2px rgba(0, 0, 0, 0.75);
-  box-shadow:         0px 3px 5px rgba(0, 0, 0, 0.20);
-}
-
-.track {
-  .shadow;
-  color: @darkGray;
-  min-height: 150px !important;
-  padding: @mediumGap;
-  font-size: 1.2em;
-  border-radius: 2px;
-  margin-bottom: @largeGap;
-}
-
-.trackOne {
-  .track;
-  background-color: @lightYellow;
-}
-
-.trackTwo {
-  .track;
-  background-color: @lightRed;
-}
-
-.trackThree {
-  .track;
-  background-color: @lightGreen;
-}
-
-.trackKeynote {
-  .track;
-  min-height: 40px !important;
-  background-color: @lightBlue;
+  -moz-box-shadow: 2px 2px 10px #ddd;
+  -webkit-box-shadow: 2px 2px 10px #ddd;
+  box-shadow: 2px 2px 10px #ddd;
 }
 
 .break {
@@ -62,10 +32,14 @@ body {
   font-size: 1.2em;
   text-transform: uppercase;
   padding: @mediumGap;
-  background-color: @mediumGray;
+  background-color: @breakBg;
   color: white;
   font-weight: bold;
   border-radius: 2px;
   min-height: 20px !important;
   margin-bottom: @largeGap;
+}
+
+.row-fluid {
+  width: 1400px;
 }
