@@ -5,6 +5,8 @@ import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -32,6 +34,9 @@ public class Track extends Model {
     @OneToMany(mappedBy="track", cascade= CascadeType.ALL)
     public List<Presentation> presentations;
 
+    // Create Finder for Track objects
+    public static Model.Finder<String, Track> find = new Model.Finder(String.class, Track.class);
+
     /**
      * Retrieve relative rank compared to other tracks
      */
@@ -48,9 +53,6 @@ public class Track extends Model {
 
         return relativeRank;
     }
-
-    // Create Finder for Track objects
-    public static Model.Finder<String, Track> find = new Model.Finder(String.class, Track.class);
 
     // -- Queries
     /**

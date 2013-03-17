@@ -1,37 +1,37 @@
-.trackOneName {
+.trackHeader1 {
   .trackName;
   color: @trackOneColor;
 }
 
-.trackTwoName {
+.trackHeader2 {
   .trackName;
   color: @trackTwoColor;
 }
 
-.trackThreeName {
+.trackHeader3 {
   .trackName;
   color: @trackThreeColor;
 }
 
-.trackOneHeadline {
+.trackHeadline1 {
   .headline;
-  color: @trackOneColor;
+  color: @darkGray;
 }
 
-.trackTwoHeadline {
+.trackHeadline2 {
   .headline;
-  color: @trackTwoColor;
+  color: @darkGray;
 }
 
-.trackThreeHeadline {
+.trackHeadline3 {
   .headline;
-  color: @trackThreeColor;
+  color: @darkGray;
 }
 
 .track {
   .shadow;
   background-color: white;
-  color: @darkGray;
+  color: @mediumGray;
   min-height: 150px !important;
   padding: @mediumGap;
   font-size: 1.2em;
@@ -40,6 +40,28 @@
   border: 1px solid #ddd;
   border-top: 1px solid #fbfbfb;
   font-family: "ronnia-condensed-1","ronnia-condensed-2", sans-serif;
+}
+
+.trackEnd {
+  border-bottom-left-radius: @borderRadius !important;
+  border-bottom-right-radius: @borderRadius !important;
+}
+
+.trackName {
+  .shadow;
+  .text-center;
+  background-color: white;
+  padding: @mediumGap;
+  border-radius: 0px;
+  border-top-left-radius: @borderRadius;
+  border-top-right-radius: @borderRadius;
+  margin-bottom: @largeGap;
+  border: 1px solid #ddd;
+  //border-top: 1px solid #fbfbfb;
+  font-family: "ronnia-condensed-1","ronnia-condensed-2", sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.8em;
 }
 
 .trackBg {
@@ -83,17 +105,11 @@
   margin-bottom: @smallGap;
 }
 
-.trackName {
-  .shadow;
-  .text-center;
-  background-color: white;
-  padding: @mediumGap;
-  border-radius: 0px;
-  margin-bottom: @largeGap;
-  border: 1px solid #ddd;
-  border-top: 1px solid #fbfbfb;
-  font-family: "ronnia-condensed-1","ronnia-condensed-2", sans-serif;
-  text-transform: uppercase;
-  font-weight: bold;
-  font-size: 1.8em;
+#2tracks {
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  margin-bottom: 0;
+  top: 0;
 }

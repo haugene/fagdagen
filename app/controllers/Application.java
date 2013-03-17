@@ -1,7 +1,7 @@
 package controllers;
 
 import models.Track;
-import play.*;
+import org.apache.commons.lang3.StringUtils;
 import play.mvc.*;
 
 import views.html.*;
@@ -9,7 +9,6 @@ import views.html.*;
 public class Application extends Controller {
   
     public static Result index() {
-
         if(StringUtils.isNotBlank(session("username")))
         {
             System.out.println("Logged in as: " + session("username"));

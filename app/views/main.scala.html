@@ -1,4 +1,4 @@
-@(title: String)(content: Html)
+@(title: String, tracks: List[models.Track])(content: Html)
 
 <!DOCTYPE html>
 
@@ -23,129 +23,208 @@
         </div>
     </div>
     <div class="content">
-        <div class="row-fluid" style="margin-top: 30px" id="tracks">
-            <div class="span9 trackBg">
-                <div class="row-fluid">
-                    <div class="span3 trackOneName">
-                        Tor 5
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="span9">
+                        <!-- Adding tracks -->
+                    <div class="row-fluid" style="margin-top: 30px" id="tracks">
+                        <div class="offset2 span9 trackBg">
+                            <div class="row-fluid">
+                                @for(track <- tracks) {
+                                    <div class="span3 trackHeader@track.getRelativeRanking()">
+                                        @track.name
+                                    </div>
+                                }
+                            </div>
+                        </div>
                     </div>
-                    <div class="span3 trackTwoName">
-                            Cleopatra 1
+                    <div class="row-fluid">
+                        <div class="span2 time">
+                            09:00-09:30
+                        </div>
+                        <div class="span9 trackBg">
+                            <div class="trackKeynote">
+                                <div class="trackHeadline2">
+                                        Keynote - Latin 101
+                                </div>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas molestie pharetra eleifend. Suspendisse tempor pulvinar ipsum, ut fermentum magna lacinia sed. Pellentesque vehicula convallis nulla suscipit consequat. Donec libero diam, vulputate eu condimentum et, cursus auctor augue. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus vitae velit convallis mauris pharetra imperdiet. Aliquam rutrum dignissim justo, ut lobortis dolor ultrices sit amet.
+                            </div>
+                        </div>
                     </div>
-                    <div class="span3 trackThreeName">
-                            Caesar 15
+                    <div class="row-fluid">
+                        <div class="span2 time">
+                                09:30-10:00
+                        </div>
+                        <div class="span9 trackBg">
+                            <div class="row-fluid">
+                                <div class="span3">
+                                    <div>
+                                        <div class="trackOne">
+                                            <div class="trackHeadline1 underline"> Hello world </div>
+                                                SLdkøasdlksaøldksalødksølddkjhs kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span3">
+                                    <div>
+                                        <div class="trackTwo">
+                                            <div class="trackHeadline2"> Hello world </div>
+                                                SLdkøasdlksaøldksalødksølddkjhs kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span3">
+                                    <div>
+                                        <div class="trackThree">
+                                            <div class="trackHeadline3"> Hello world </div>
+                                                SLdkøasdlksaøldksalødksølddkjhs kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span2 time">
+                            10:00-10:15
+                        </div>
+                        <div class="span9 trackBg">
+                            <div class="break">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span2 time">
+                                10:15-10:45
+                        </div>
+                        <div class="span9 trackBg">
+                            <div class="row-fluid">
+                                <div class="span3">
+                                    <div>
+                                        <div class="trackOne">
+                                            <div class="trackHeadline1 underline"> Hello world </div>
+                                                SLdkøasdlksaøldksalødksølddkjhs kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span3">
+                                    <div>
+                                        <div class="trackTwo">
+                                            <div class="trackHeadline2"> Hello world </div>
+                                                SLdkøasdlksaøldksalødksølddkjhs kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span3">
+                                    <div>
+                                        <div class="trackThree">
+                                            <div class="trackHeadline3"> Hello world </div>
+                                                SLdkøasdlksaøldksalødksølddkjhs kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span3">
+                                    <div>
+                                        <div class="trackOne">
+                                            <div class="trackHeadline1 underline"> Hello world </div>
+                                                SLdkøasdlksaøldksalødksølddkjhs kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span3">
+                                    <div>
+                                        <div class="trackTwo">
+                                            <div class="trackHeadline2"> Hello world </div>
+                                                SLdkøasdlksaøldksalødksølddkjhs kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span3">
+                                    <div>
+                                        <div class="trackThree">
+                                            <div class="trackHeadline3"> Hello world </div>
+                                                SLdkøasdlksaøldksalødksølddkjhs kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row-fluid">
+                                <div class="span3">
+                                    <div>
+                                        <div class="trackOne">
+                                            <div class="trackHeadline1 underline"> Hello world </div>
+                                                SLdkøasdlksaøldksalødksølddkjhs kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span3">
+                                    <div>
+                                        <div class="trackTwo">
+                                            <div class="trackHeadline2"> Hello world </div>
+                                                SLdkøasdlksaøldksalødksølddkjhs kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span3">
+                                    <div>
+                                        <div class="trackThree">
+                                            <div class="trackHeadline3"> Hello world </div>
+                                                SLdkøasdlksaøldksalødksølddkjhs kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span2 time">
+                                10:45-11:00
+                        </div>
+                        <div class="span9 trackBg">
+                            <div class="break">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="span2 time">
+                                11:00-11:30
+                        </div>
+                        <div class="span9 trackBg">
+                            <div class="row-fluid">
+                                <div class="span3">
+                                    <div>
+                                        <div class="trackOne trackEnd">
+                                            <div class="trackHeadline1 underline"> Hello world </div>
+                                                SLdkøasdlksaøldksalødksølddkjhs kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span3">
+                                    <div>
+                                        <div class="trackTwo trackEnd">
+                                            <div class="trackHeadline2"> Hello world </div>
+                                                SLdkøasdlksaøldksalødksølddkjhs kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="span3">
+                                    <div>
+                                        <div class="trackThree trackEnd">
+                                            <div class="trackHeadline3"> Hello world </div>
+                                                SLdkøasdlksaøldksalødksølddkjhs kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-fluid">
+                        <div class="offset2 span9 trackEndBg">
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="span9 trackBg">
-                <div class="trackKeynote">
-                    <div class="trackTwoHeadline">
-                            Keynote - Latin 101
-                    </div>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas molestie pharetra eleifend. Suspendisse tempor pulvinar ipsum, ut fermentum magna lacinia sed. Pellentesque vehicula convallis nulla suscipit consequat. Donec libero diam, vulputate eu condimentum et, cursus auctor augue. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus vitae velit convallis mauris pharetra imperdiet. Aliquam rutrum dignissim justo, ut lobortis dolor ultrices sit amet.
-                </div>
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="span9 trackBg">
-                <div class="row-fluid">
-                    <div class="span3">
-                        <div>
-                            <div class="trackOne">
-                                <div class="trackOneHeadline underline"> Hello world </div>
-                                    SLdkøasdlksaøldksalødksølddkjhs kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh
-                            </div>
-                        </div>
-                    </div>
-                    <div class="span3">
-                        <div>
-                            <div class="trackTwo">
-                                <div class="trackTwoHeadline"> Hello world </div>
-                                    SLdkøasdlksaøldksalødksølddkjhs kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh
-                            </div>
-                        </div>
-                    </div>
-                    <div class="span3">
-                        <div>
-                            <div class="trackThree">
-                                <div class="trackThreeHeadline"> Hello world </div>
-                                    SLdkøasdlksaøldksalødksølddkjhs kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="span9 trackBg">
-                <div class="row-fluid">
-                    <div class="span3">
-                        <div>
-                            <div class="trackOne">
-                                <div class="trackOneHeadline underline"> Hello world </div>
-                                    SLdkøasdlksaøldksalødksølddkjhs kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh
-                            </div>
-                        </div>
-                    </div>
-                    <div class="span3">
-                        <div>
-                            <div class="trackTwo">
-                                <div class="trackTwoHeadline"> Hello world </div>
-                                    SLdkøasdlksaøldksalødksølddkjhs kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh
-                            </div>
-                        </div>
-                    </div>
-                    <div class="span3">
-                        <div>
-                            <div class="trackThree">
-                                <div class="trackThreeHeadline"> Hello world </div>
-                                    SLdkøasdlksaøldksalødksølddkjhs kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="span9 trackBg">
-                <div class="row-fluid">
-                    <div class="span3">
-                        <div>
-                            <div class="trackOne">
-                                <div class="trackOneHeadline underline"> Hello world </div>
-                                    SLdkøasdlksaøldksalødksølddkjhs kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh
-                            </div>
-                        </div>
-                    </div>
-                    <div class="span3">
-                        <div>
-                            <div class="trackTwo">
-                                <div class="trackTwoHeadline"> Hello world </div>
-                                    SLdkøasdlksaøldksalødksølddkjhs kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh
-                            </div>
-                        </div>
-                    </div>
-                    <div class="span3">
-                        <div>
-                            <div class="trackThree">
-                                <div class="trackThreeHeadline"> Hello world </div>
-                                    SLdkøasdlksaøldksalødksølddkjhs kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="span9 trackBg">
-                <div class="break">
-                </div>
-            </div>
-        </div>
-        <div class="row-fluid">
-            <div class="span9 trackEndBg">
             </div>
         </div>
     </div>
