@@ -1,11 +1,11 @@
 package models;
 
-import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -31,5 +31,26 @@ public class Track extends Model {
     // Presentations for this Track
     @OneToMany(mappedBy="track", cascade= CascadeType.ALL)
     public List<Presentation> presentations;
+
+    // Create Finder for Track objects
+    public static Model.Finder<String, Track> find = new Model.Finder(String.class, Track.class);
+
+    // -- Queries
+    /**
+     * Retrieve all tracks.
+     */
+    public static List<Track> findAll() {
+
+        List<Track> tracks = find.all();
+
+        Collections.sort(tracks, new Comparator<Track>() {
+            @Override
+            public int compare(Track track, Track track2) {
+                return track.rank.compareTo(track2.rank);
+            }
+        });
+
+        return tracks;
+    }
 
 }
