@@ -35,7 +35,7 @@ public class Track extends Model {
     public List<Presentation> presentations;
 
     // Create Finder for Track objects
-    public static Model.Finder<String, Track> find = new Model.Finder(String.class, Track.class);
+    public static Model.Finder<Long, Track> find = new Model.Finder(Long.class, Track.class);
 
     /**
      * Retrieve relative rank compared to other tracks
