@@ -1,6 +1,7 @@
 package models;
 
 import play.data.validation.Constraints;
+import play.db.ebean.Model;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,7 +16,7 @@ import java.util.List;
  * @author kristian.haugene
  */
 @Entity
-public class Slot {
+public class Slot implements Comparable<Slot>{
 
     @Id
     public Long id;
@@ -32,4 +33,11 @@ public class Slot {
     @OneToMany(mappedBy="slot", cascade= CascadeType.ALL)
     public List<Presentation> presentations;
 
+    // Create a finder
+    public static Model.Finder<Long, Slot> find = new Model.Finder<Long, Slot>(Long.class, Slot.class);
+
+    @Override
+    public int compareTo(Slot that) {
+        return this.startTime.compareTo(that.startTime);
+    }
 }
