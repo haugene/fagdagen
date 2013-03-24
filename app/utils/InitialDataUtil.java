@@ -30,8 +30,14 @@ public class InitialDataUtil {
      */
     private static void addSlot(Integer hour, Integer minute, Integer duration)
     {
+
+        // Create a new slot
         Slot slot = new Slot();
+
+        // Set startTime
         slot.startTime = new DateTime(2013, 4, 25, hour, minute).toDate();
+
+        // Set endTime. If duration is given, use it. Else default to 30 min
         if(duration != null)
         {
             slot.endTime = new DateTime(slot.startTime).plusMinutes(duration).toDate();
@@ -40,6 +46,7 @@ public class InitialDataUtil {
             slot.endTime = new DateTime(slot.startTime).plusMinutes(30).toDate();
         }
 
+        // And save
         Ebean.save(slot);
     }
 }
