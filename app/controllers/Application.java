@@ -19,6 +19,7 @@ public class Application extends Controller {
         if(isUserLoggedIn())
         {
             InitialDataUtil.addInitialData();
+            return index();
         }
 
         // The user has to log in
