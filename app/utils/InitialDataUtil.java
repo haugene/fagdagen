@@ -73,7 +73,7 @@ public class InitialDataUtil {
 
         Presentation presentation = new Presentation();
         presentation.name = "Hello World";
-        presentation.description = "kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh";
+        presentation.description = "This is a description of the presentation. Formally we like to call it an abstract. This should give a brief introduction to the topic";
         presentation.presenter = "Stephen Hawking";
         presentation.slot = slot;
         presentation.track = track;

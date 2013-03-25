@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Presentation;
 import models.Track;
 import org.apache.commons.lang3.StringUtils;
 import play.mvc.*;
@@ -11,7 +12,7 @@ public class Application extends Controller {
   
     public static Result index()
     {
-        return ok(index.render(Track.findAll()));
+        return ok(index.render(Track.findAll(), Presentation.getPresentationsBySlot()));
     }
 
     public static Result addData()

@@ -55,7 +55,7 @@ public class Presentation extends Model {
      * A method for reading presentations in an orderly fashion
      * @return a map of all the slots and the presentations that is attributed to it
      */
-    public Map<Slot, List<Presentation>> getPresentationsBySlot()
+    public static Map<Slot, List<Presentation>> getPresentationsBySlot()
     {
         // Get all the presentations
         List<Presentation> presentations = find.all();
@@ -70,7 +70,6 @@ public class Presentation extends Model {
         /*
          * Now, create a map of all slots and their presentations.
          * We want the map to be sorted, let's go for a TreeMap
-         * // TODO: kristian : 22.03.2013 : There is no sorting atm. Make Slot comparable and so on.
          */
         Map<Slot, List<Presentation>> result = new TreeMap<Slot, List<Presentation>>();
 

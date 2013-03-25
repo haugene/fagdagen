@@ -1,5 +1,7 @@
 package models;
 
+import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
@@ -39,5 +41,26 @@ public class Slot implements Comparable<Slot>{
     @Override
     public int compareTo(Slot that) {
         return this.startTime.compareTo(that.startTime);
+    }
+
+    public String getFormattedStartTime()
+    {
+        return getHoursAndMinutes(startTime);
+    }
+
+    public String getFormattedEndTime()
+    {
+        return getHoursAndMinutes(endTime);
+    }
+
+    private String getHoursAndMinutes(Date date)
+    {
+        // Use DateTime, always simpler
+        DateTime dateTime = new DateTime(date);
+
+        String hours = String.valueOf(dateTime.getHourOfDay());
+        String minutes = String.valueOf(dateTime.getMinuteOfHour());
+
+        return StringUtils.leftPad(hours, 2, "0") + ":" + StringUtils.leftPad(minutes, 2, "0");
     }
 }
