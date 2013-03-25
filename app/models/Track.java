@@ -1,13 +1,10 @@
 package models;
 
-import play.data.format.Formats;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,7 +14,7 @@ import java.util.List;
  * @author kristian.haugene
  */
 @Entity
-public class Track extends Model {
+public class Track extends Model implements Comparable<Track>{
 
     @Id
     public Long id;
@@ -28,7 +25,7 @@ public class Track extends Model {
 
     // Each track has a rank that allows us to place it correctly
     @Constraints.Required
-    public Long rank;
+    public Integer rank;
 
     // Presentations for this Track
     @OneToMany(mappedBy="track", cascade= CascadeType.ALL)
@@ -62,14 +59,13 @@ public class Track extends Model {
 
         List<Track> tracks = find.all();
 
-        Collections.sort(tracks, new Comparator<Track>() {
-            @Override
-            public int compare(Track track, Track track2) {
-                return track.rank.compareTo(track2.rank);
-            }
-        });
+        Collections.sort(tracks);
 
         return tracks;
     }
 
+    @Override
+    public int compareTo(Track that) {
+        return this.rank.compareTo(that.rank);
+    }
 }

@@ -1,9 +1,14 @@
 package utils;
 
 import com.avaje.ebean.Ebean;
+import models.Presentation;
 import models.Slot;
+import models.Track;
 import org.joda.time.DateTime;
 import play.Logger;
+
+import java.util.Collections;
+import java.util.List;
 
 /**
  * This utility class will add some slots and presentations to the database
@@ -15,8 +20,14 @@ public class InitialDataUtil {
         Logger.of(InitialDataUtil.class).info("Adding initial data");
 
         addSlots();
+        addPresentations();
     }
 
+    /**
+     * Helper method that adds the slots.
+     * We group them, adding "presentation slots" first and breaks(15 min) after.
+     * This is so that we don't assume anything from the ordering in the real database, as this is test data.
+     */
     private static void addSlots()
     {
         // First slot
@@ -33,6 +44,44 @@ public class InitialDataUtil {
 
         // Break 2
         addSlot(10, 15, 15);
+    }
+
+    /**
+     * Adds sample presentations to the slots
+     */
+    private static void addPresentations() {
+
+        // Get all slots and sort them.
+        List<Slot> slots = Slot.find.all();
+        Collections.sort(slots);
+
+        // Get all Tracks and sort them
+        List<Track> tracks = Track.find.all();
+        Collections.sort(tracks);
+
+        // For each slot, add a presentation for each track
+        for (Slot slot : slots)
+        {
+            for(Track track : tracks)
+            {
+                addPresentation(slot, track);
+            }
+        }
+    }
+
+    private static void addPresentation(Slot slot, Track track) {
+
+        Presentation presentation = new Presentation();
+        presentation.name = "Hello World";
+        presentation.description = "kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh kjhsadkj hasdkjh asdjh askjdh aksjhd kjahsdkjahsdkja sdkjh";
+        presentation.presenter = "Stephen Hawking";
+        presentation.slot = slot;
+        presentation.track = track;
+
+        // For now we only add one presentation per slot. They can all have rank 1.
+        presentation.rank = 1;
+
+        Ebean.save(presentation);
     }
 
     /**
