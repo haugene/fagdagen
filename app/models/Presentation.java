@@ -43,7 +43,7 @@ public class Presentation extends Model {
 
     // Rank within slot and track
     @Constraints.Required
-    public Long rank;
+    public Integer rank;
 
     // Is this a presentation for all?(keynotes etc)
     public boolean spanAllTracks = false;

@@ -22,17 +22,17 @@ public class InitialDataUtil {
         // First slot
         addSlot(9, 0, null);
 
-        // Break
-        addSlot(9, 30, 15);
-
         // Second slot
         addSlot(9, 45, null);
 
-        // Break
-        addSlot(10, 15, 15);
-
         // Third slot
         addSlot(10, 30, null);
+
+        // Break 1
+        addSlot(9, 30, 15);
+
+        // Break 2
+        addSlot(10, 15, 15);
     }
 
     /**
