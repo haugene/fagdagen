@@ -9,8 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * A slot is a slice of time across all tracks.
@@ -31,12 +30,39 @@ public class Slot implements Comparable<Slot>{
     @Constraints.Required
     public Date endTime;
 
+    public boolean isBreak = false;
+
     // Presentations for this Slot
     @OneToMany(mappedBy="slot", cascade= CascadeType.ALL)
     public List<Presentation> presentations;
 
     // Create a finder
     public static Model.Finder<Long, Slot> find = new Model.Finder<Long, Slot>(Long.class, Slot.class);
+
+    /**
+     * A method for reading presentations in an orderly fashion
+     * @return a map of all the slots and the presentations that is attributed to it
+     */
+    public static Map<Slot, List<Presentation>> getPresentationsBySlot()
+    {
+        // Get all the slots
+        List<Slot> slots = find.all();
+
+        /*
+         * Now, create a map of all slots and their presentations.
+         * We want the map to be sorted, let's go for a TreeMap
+         */
+        Map<Slot, List<Presentation>> result = new TreeMap<Slot, List<Presentation>>();
+
+        for(Slot slot : slots)
+        {
+            // For each slot, add the slot and its presentations
+            result.put(slot, slot.presentations);
+        }
+
+        // Our work here is done, return it
+        return result;
+    }
 
     @Override
     public int compareTo(Slot that) {

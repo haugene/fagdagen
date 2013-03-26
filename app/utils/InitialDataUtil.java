@@ -31,19 +31,22 @@ public class InitialDataUtil {
     private static void addSlots()
     {
         // First slot
-        addSlot(9, 0, null);
+        addSlot(9, 0, null, false);
 
         // Second slot
-        addSlot(9, 45, null);
+        addSlot(9, 45, null, false);
 
         // Third slot
-        addSlot(10, 30, null);
+        addSlot(10, 30, null, false);
 
         // Break 1
-        addSlot(9, 30, 15);
+        addSlot(9, 30, 15, true);
 
         // Break 2
-        addSlot(10, 15, 15);
+        addSlot(10, 15, 15, true);
+
+        // Break 3
+        addSlot(11, 00, 15, true);
     }
 
     /**
@@ -59,9 +62,15 @@ public class InitialDataUtil {
         List<Track> tracks = Track.find.all();
         Collections.sort(tracks);
 
-        // For each slot, add a presentation for each track
+        // For each slot, add a presentation for each track. Unless it's a break
         for (Slot slot : slots)
         {
+            if (slot.isBreak)
+            {
+                // This slot is flagged as a break, continue to next slot
+                continue;
+            }
+
             for(Track track : tracks)
             {
                 addPresentation(slot, track);
@@ -85,12 +94,29 @@ public class InitialDataUtil {
     }
 
     /**
+     * Checks if a Slot is a break. This is(for now) done by checking the duration.
+     * 15 min slot equals break
+     * @param slot
+     * @return
+     */
+    private static boolean slotIsBreak(Slot slot) {
+        DateTime start = new DateTime(slot.startTime);
+        DateTime end = new DateTime(slot.endTime);
+
+        if(end.minusMinutes(15).isEqual(start))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Adds a slot to the database.
      * @param hour the hour of the day for the presentation
      * @param minute the minute of the hour for the presentation
      * @param duration duration of the slot in minutes, can be null. Defaults to 30 min
      */
-    private static void addSlot(Integer hour, Integer minute, Integer duration)
+    private static void addSlot(Integer hour, Integer minute, Integer duration, boolean isBreak)
     {
 
         // Create a new slot
@@ -107,6 +133,8 @@ public class InitialDataUtil {
         {
             slot.endTime = new DateTime(slot.startTime).plusMinutes(30).toDate();
         }
+
+        slot.isBreak = isBreak;
 
         // And save
         Ebean.save(slot);

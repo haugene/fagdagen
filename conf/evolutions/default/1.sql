@@ -17,6 +17,7 @@ create table slot (
   id                        bigint not null,
   start_time                timestamp,
   end_time                  timestamp,
+  is_break                  boolean,
   constraint pk_slot primary key (id))
 ;
 

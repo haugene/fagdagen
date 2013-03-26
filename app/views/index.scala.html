@@ -55,92 +55,27 @@
                         </div>
                     </div>
                 </div>
-                <div class="row-fluid">
-                    <div class="span2 time">
-                        09:30-10:00
-                    </div>
-                    <div class="span9 trackBg">
-                        <div class="row-fluid">
-                            <div class="span3">
-                                <div>
-                                    <div class="trackOne">
-                                        <div class="trackHeadline1 underline"> Hello world</div>
-                                        SLdkøasdlksaøldksalødksølddkjhs kjhsadkj hasdkjh asdjh askjdh aksjhd
-                                        kjahsdkjahsdkja sdkjh
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="span3">
-                                <div>
-                                    <div class="trackTwo">
-                                        <div class="trackHeadline2"> Hello world</div>
-                                        SLdkøasdlksaøldksalødksølddkjhs kjhsadkj hasdkjh asdjh askjdh aksjhd
-                                        kjahsdkjahsdkja sdkjh
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="span3">
-                                <div>
-                                    <div class="trackThree">
-                                        <div class="trackHeadline3"> Hello world</div>
-                                        SLdkøasdlksaøldksalødksølddkjhs kjhsadkj hasdkjh asdjh askjdh aksjhd
-                                        kjahsdkjahsdkja sdkjh
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span2 time">
-                        10:00-10:15
-                    </div>
-                    <div class="span9 trackBg">
-                        <div class="break">
-                        </div>
-                    </div>
-                </div>
 
                 <!-- Print slots and presentations -->
                 @for((slot, presentations) <- presentationsBySlot) {
+
                 <div class="row-fluid">
                     <div class="span2 time">
-                        @slot.getFormattedStartTime - @slot.getFormattedEndTime
+                        @renderSlot(slot)
                     </div>
                     <div class="span9 trackBg">
-                        <div class="row-fluid">
-                            @displayPresentations(presentations)
-                        </div>
+                    @if(slot.isBreak) {
+                        @renderBreak()
+                    } else {
+                        @renderPresentations(presentations)
+                    }
                     </div>
                 </div>
                 }
 
-                @displayPresentations(presentations: List[models.Presentation]) = {
-                @for(presentation <- presentations) {
-                <div class="span3">
-                    <div>
-                        <!-- TODO: All tracks aren`t trackOne, do this dynamically. -->
-                        <div class="trackOne">
-                            <div class="trackHeadline1 underline">@presentation.name</div>
-                            @presentation.description
-                        </div>
-                    </div>
-                </div>
-                }
-                }
-
                 <div class="row-fluid">
                     <div class="span2 time">
-                        10:45-11:00
-                    </div>
-                    <div class="span9 trackBg">
-                        <div class="break">
-                        </div>
-                    </div>
-                </div>
-                <div class="row-fluid">
-                    <div class="span2 time">
-                        11:00-11:30
+                        11:15-11:45
                     </div>
                     <div class="span9 trackBg">
                         <div class="row-fluid">
