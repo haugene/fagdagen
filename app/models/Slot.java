@@ -43,7 +43,7 @@ public class Slot implements Comparable<Slot>{
      * A method for reading presentations in an orderly fashion
      * @return a map of all the slots and the presentations that is attributed to it
      */
-    public static Map<Slot, List<Presentation>> getPresentationsBySlot()
+    public static TreeMap<Slot, List<Presentation>> getPresentationsBySlot()
     {
         // Get all the slots
         List<Slot> slots = find.all();
@@ -52,7 +52,7 @@ public class Slot implements Comparable<Slot>{
          * Now, create a map of all slots and their presentations.
          * We want the map to be sorted, let's go for a TreeMap
          */
-        Map<Slot, List<Presentation>> result = new TreeMap<Slot, List<Presentation>>();
+        TreeMap<Slot, List<Presentation>> result = new TreeMap<Slot, List<Presentation>>();
 
         for(Slot slot : slots)
         {
@@ -62,6 +62,25 @@ public class Slot implements Comparable<Slot>{
 
         // Our work here is done, return it
         return result;
+    }
+
+    /**
+     * Checks if this Slot contains one or more keynote presentations
+     * @return
+     */
+    public Boolean containsKeynote()
+    {
+        for (Presentation presentation : presentations)
+        {
+            if (presentation.isKeynote)
+            {
+                // If any presentation is a keynote, return true
+                return true;
+            }
+        }
+
+        // None of the presentations were keynotes, return false
+        return false;
     }
 
     @Override

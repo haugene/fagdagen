@@ -15,66 +15,87 @@ import java.util.List;
  */
 public class InitialDataUtil {
 
-    public static void addInitialData()
-    {
+    public static void addInitialData() {
         Logger.of(InitialDataUtil.class).info("Adding initial data");
 
-        addSlots();
-        addPresentations();
+        addSlotsWithPresentations();
     }
 
     /**
-     * Helper method that adds the slots.
+     * Helper method that adds the slots and populate them with presentations.
      * We group them, adding "presentation slots" first and breaks(15 min) after.
      * This is so that we don't assume anything from the ordering in the real database, as this is test data.
      */
-    private static void addSlots()
-    {
-        // First slot
-        addSlot(9, 0, null, false);
+    private static void addSlotsWithPresentations() {
+        // First presentation slot - keynote
+        addSlot(9, 0, 30, SlotType.KEYNOTE);
 
-        // Second slot
-        addSlot(9, 45, null, false);
+        // Second presentation slot
+        addSlot(9, 45, 30, SlotType.PRESENTATIONS);
 
-        // Third slot
-        addSlot(10, 30, null, false);
+        // Third presentation slot
+        addSlot(10, 30, 30, SlotType.PRESENTATIONS);
+
+        // Fourth presentation slot
+        addSlot(11, 15, 30, SlotType.PRESENTATIONS);
 
         // Break 1
-        addSlot(9, 30, 15, true);
+        addSlot(9, 30, 15, SlotType.BREAK);
 
         // Break 2
-        addSlot(10, 15, 15, true);
+        addSlot(10, 15, 15, SlotType.BREAK);
 
         // Break 3
-        addSlot(11, 00, 15, true);
+        addSlot(11, 00, 15, SlotType.BREAK);
     }
 
     /**
-     * Adds sample presentations to the slots
+     * Adds a slot to the database.
+     *
+     * @param hour     the hour of the day for the presentation
+     * @param minute   the minute of the hour for the presentation
+     * @param duration duration of the slot in minutes
      */
-    private static void addPresentations() {
+    private static void addSlot(Integer hour, Integer minute, Integer duration, SlotType type)
+    {
+        // Create slot
+        Slot slot = crateSlot(hour, minute, duration);
 
-        // Get all slots and sort them.
-        List<Slot> slots = Slot.find.all();
-        Collections.sort(slots);
+        // Save it
+        Ebean.save(slot);
+
+        // Do something for the slot, depending on which type it is
+        switch (type) {
+            case PRESENTATIONS:
+                addPresentations(slot);
+                break;
+
+            case KEYNOTE:
+                addKeynote(slot);
+                break;
+
+            case BREAK:
+                slot.isBreak = true;
+                Ebean.update(slot);
+                break;
+
+            default:
+                // Do nothing
+        }
+    }
+
+    /**
+     * Adds sample presentations for a slot
+     * @param slot to add presentations for
+     */
+    private static void addPresentations(Slot slot) {
 
         // Get all Tracks and sort them
         List<Track> tracks = Track.find.all();
         Collections.sort(tracks);
 
-        // For each slot, add a presentation for each track. Unless it's a break
-        for (Slot slot : slots)
-        {
-            if (slot.isBreak)
-            {
-                // This slot is flagged as a break, continue to next slot
-                continue;
-            }
-
-            for(Track track : tracks)
-            {
-                addPresentation(slot, track);
-            }
+        for (Track track : tracks) {
+            addPresentation(slot, track);
         }
     }
 
@@ -94,49 +115,51 @@ public class InitialDataUtil {
     }
 
     /**
-     * Checks if a Slot is a break. This is(for now) done by checking the duration.
-     * 15 min slot equals break
-     * @param slot
-     * @return
+     * Adds a keynote for slot
+     * @param slot to add keynote for
      */
-    private static boolean slotIsBreak(Slot slot) {
-        DateTime start = new DateTime(slot.startTime);
-        DateTime end = new DateTime(slot.endTime);
+    private static void addKeynote(Slot slot) {
 
-        if(end.minusMinutes(15).isEqual(start))
-        {
-            return true;
-        }
-        return false;
+        Presentation presentation = new Presentation();
+        presentation.name = "Keynote Yeah";
+        presentation.description = "In this keynote, something interesting will be discussed. Everyone should be here or be []";
+        presentation.presenter = "Someone Awesome";
+        presentation.slot = slot;
+
+        // Assign to the first track
+        presentation.track = Track.findAll().get(0);
+
+        // For now we only add one presentation per slot. They can all have rank 1.
+        presentation.rank = 1;
+
+        // This is a keynote
+        presentation.isKeynote = true;
+
+        // Save it
+        Ebean.save(presentation);
     }
 
     /**
-     * Adds a slot to the database.
-     * @param hour the hour of the day for the presentation
-     * @param minute the minute of the hour for the presentation
-     * @param duration duration of the slot in minutes, can be null. Defaults to 30 min
+     * Creates a slot object
+     * @param hour the hour of the day this slot starts
+     * @param minute the minute of the hour this slot start
+     * @param duration slot length
+     * @return fresh slot
      */
-    private static void addSlot(Integer hour, Integer minute, Integer duration, boolean isBreak)
-    {
-
+    private static Slot crateSlot(Integer hour, Integer minute, Integer duration) {
         // Create a new slot
         Slot slot = new Slot();
 
         // Set startTime
         slot.startTime = new DateTime(2013, 4, 25, hour, minute).toDate();
+        slot.endTime = new DateTime(slot.startTime).plusMinutes(duration).toDate();
+        return slot;
+    }
 
-        // Set endTime. If duration is given, use it. Else default to 30 min
-        if(duration != null)
-        {
-            slot.endTime = new DateTime(slot.startTime).plusMinutes(duration).toDate();
-        } else
-        {
-            slot.endTime = new DateTime(slot.startTime).plusMinutes(30).toDate();
-        }
-
-        slot.isBreak = isBreak;
-
-        // And save
-        Ebean.save(slot);
+    /**
+     * Types of slots
+     */
+    private enum SlotType {
+        BREAK, KEYNOTE, PRESENTATIONS
     }
 }

@@ -9,11 +9,18 @@ import play.mvc.*;
 import utils.InitialDataUtil;
 import views.html.*;
 
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+
 public class Application extends Controller {
   
     public static Result index()
     {
-        return ok(index.render(Track.findAll(), Slot.getPresentationsBySlot()));
+        TreeMap<Slot, List<Presentation>> presentationsBySlot = Slot.getPresentationsBySlot();
+        Slot lastSlot = presentationsBySlot.lastKey();
+
+        return ok(index.render(Track.findAll(), presentationsBySlot, lastSlot));
     }
 
     public static Result addData()
