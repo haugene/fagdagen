@@ -1,4 +1,63 @@
-@(tracks: List[models.Track])
-@main("Fagdagen 2013", tracks) {
+@(tracks: List[models.Track], presentationsBySlot: Map[models.Slot, List[models.Presentation]], lastSlot: models.Slot)
+<!DOCTYPE html>
 
-}
+<html>
+<head>
+    <title>Fagdagen 2013</title>
+    <link rel='shortcut icon' type='image/png' href='@routes.Assets.at("images/favicon.png")'>
+    <script src='@routes.Assets.at("javascripts/jquery-1.9.0.min.js")' type='text/javascript'></script>
+
+    <!-- Bootstrap -->
+    <script src='@routes.Assets.at("bootstrap/js/bootstrap.js")' type='text/javascript'></script>
+
+    <link rel='stylesheet/less' type='text/css' media='screen' href='@routes.Assets.at("less/main.less")'>
+    <script src='@routes.Assets.at("javascripts/less-1.3.3.min.js")' type='text/javascript'></script>
+
+</head>
+<body>
+
+<div class="navbar-fixed-top navbar navbar-inverse">
+    <div class="navbar-inner">
+        <h3 class="menu"> Fagdagen 2013 </h3>
+    </div>
+</div>
+<div class="content">
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="span9">
+
+                <!-- Display tracks -->
+                @renderTracks(tracks)
+
+                <!-- Display slots and presentations -->
+                @for((slot, presentations) <- presentationsBySlot) {
+
+                <div class="row-fluid">
+                    <div class="span2 time">
+                        @renderSlot(slot)
+                    </div>
+                    <div class="span9 trackBg">
+                        @if(slot.isBreak) {
+                            @renderBreak()
+                        }
+                        @if(slot.containsKeynote) {
+                            @renderKeynotes(presentations)
+                        }
+                        @if(!slot.isBreak && !slot.containsKeynote) {
+                            @renderPresentations(presentations, lastSlot)
+                        }
+                    </div>
+                </div>
+                }
+
+                <!-- Fade out -->
+                <div class="row-fluid">
+                    <div class="offset2 span9 trackEndBg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

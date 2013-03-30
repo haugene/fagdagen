@@ -9,7 +9,7 @@ create table presentation (
   slot_id                   bigint,
   track_id                  bigint,
   rank                      bigint,
-  span_all_tracks           boolean,
+  is_keynote                boolean,
   constraint pk_presentation primary key (id))
 ;
 
@@ -17,6 +17,7 @@ create table slot (
   id                        bigint not null,
   start_time                timestamp,
   end_time                  timestamp,
+  is_break                  boolean,
   constraint pk_slot primary key (id))
 ;
 

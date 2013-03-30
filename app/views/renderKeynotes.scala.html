@@ -1,0 +1,11 @@
+@(presentations: List[models.Presentation])
+
+<!-- Render presentations, they're keynotes -->
+@for(presentation <- presentations) {
+<div class="trackKeynote">
+    <div class="trackHeadline2">
+        @presentation.name
+    </div>
+    @presentation.description
+</div>
+}

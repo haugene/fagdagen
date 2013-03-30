@@ -1,0 +1,16 @@
+@(presentations: List[models.Presentation], lastSlot: models.Slot)
+
+<!-- Render presentations -->
+<div class="row-fluid">
+    @for(presentation <- presentations) {
+    <div class="span3">
+        <div>
+            <!-- TODO: All tracks aren`t trackOne, do this dynamically. -->
+            <div class='trackOne @{if(presentation.slot.equals(lastSlot)) "trackEnd"}'>
+                <div class="trackHeadline1 underline">@presentation.name</div>
+                @presentation.description
+            </div>
+        </div>
+    </div>
+    }
+</div>

@@ -1,13 +1,8 @@
 package models;
 
-import java.util.*;
 import javax.persistence.*;
-
 import play.db.ebean.*;
-import play.data.format.*;
 import play.data.validation.*;
-
-import com.avaje.ebean.*;
 
 /**
  * User entity managed by Ebean
@@ -28,22 +23,6 @@ public class User extends Model {
     // Create Finder for User objects
     public static Model.Finder<String,User> find = new Model.Finder(String.class, User.class);
 
-    // -- Queries
-    /**
-     * Retrieve all users.
-     */
-    public static List<User> findAll() {
-        return find.all();
-    }
-
-    /**
-     * Retrieve a User from email.
-     */
-    public static User findByUsername(String username)
-    {
-        return find.where().eq("username", username).findUnique();
-    }
-
     /**
      * Authenticate a User.
      */
@@ -58,12 +37,6 @@ public class User extends Model {
                 .findUnique();
     }
 
-
-    // - Helpers
-    public String toString() {
-        return "User(" + username + ")";
-    }
-
     /**
      * We decided that we didn't want a signup page and decided to do the user administration simple.
      * The first time a user logs in, that user is created. We only need one user(ie admin),
@@ -75,7 +48,7 @@ public class User extends Model {
     private static void addUserIfNoUsersExist(String username, String password)
     {
         // If no user exist, add this one
-        if(findAll().isEmpty()){
+        if(find.all().isEmpty()){
             User user = new User();
             user.username = username;
             user.password = password;
@@ -83,4 +56,3 @@ public class User extends Model {
         }
     }
 }
-

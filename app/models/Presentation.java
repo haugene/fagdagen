@@ -6,6 +6,7 @@ import play.db.ebean.Model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.util.*;
 
 /**
  * Represents a presentation.
@@ -40,10 +41,14 @@ public class Presentation extends Model {
     @ManyToOne
     public Track track;
 
-    // Rank within slot
+    // Rank within slot and track
     @Constraints.Required
-    public Long rank;
+    public Integer rank;
 
-    // Is this a presentation for all?(keynotes etc)
-    public boolean spanAllTracks = false;
+    // Is this a presentation a keynote?(common for all tracks)
+    public boolean isKeynote = false;
+
+    // Create a Finder for Presentation objects
+    public static Finder<Long, Presentation> find = new Finder(Long.class, Presentation.class);
+
 }
