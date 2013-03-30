@@ -7,7 +7,12 @@
         <div>
             <!-- TODO: All tracks aren`t trackOne, do this dynamically. -->
             <div class='trackOne @{if(presentation.slot.equals(lastSlot)) "trackEnd"}'>
-                <div class="trackHeadline1 underline">@presentation.name</div>
+                <div class="trackHeadline1 underline">
+                    @presentation.name
+                </div>
+                <div class="presenter">
+                    @presentation.presenter
+                </div>
                 @presentation.description
             </div>
         </div>
