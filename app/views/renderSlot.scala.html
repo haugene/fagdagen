@@ -1,4 +1,6 @@
 @(slot: models.Slot)
 
-<!-- Print startTime and endTime, separated by " - " -->
-@slot.getFormattedStartTime - @slot.getFormattedEndTime
+@if(!slot.isBreak) {
+    <!-- Print startTime and endTime, separated by " - " -->
+    @slot.getFormattedStartTime - @slot.getFormattedEndTime
+}
