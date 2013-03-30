@@ -45,8 +45,8 @@ public class Presentation extends Model {
     @Constraints.Required
     public Integer rank;
 
-    // Is this a presentation for all?(keynotes etc)
-    public boolean spanAllTracks = false;
+    // Is this a presentation a keynote?(common for all tracks)
+    public boolean isKeynote = false;
 
     // Create a Finder for Presentation objects
     public static Finder<Long, Presentation> find = new Finder(Long.class, Presentation.class);

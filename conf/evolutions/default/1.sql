@@ -9,7 +9,7 @@ create table presentation (
   slot_id                   bigint,
   track_id                  bigint,
   rank                      bigint,
-  span_all_tracks           boolean,
+  is_keynote                boolean,
   constraint pk_presentation primary key (id))
 ;
 
