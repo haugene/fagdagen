@@ -25,18 +25,9 @@
     <div class="row-fluid">
         <div class="span12">
             <div class="span9">
-                <!-- Adding tracks -->
-                <div class="row-fluid" style="margin-top: 30px" id="tracks">
-                    <div class="offset2 span9 trackBg">
-                        <div class="row-fluid">
-                            @for(track <- tracks) {
-                            <div class="span3 trackHeader@track.getRelativeRanking()">
-                                @track.name
-                            </div>
-                            }
-                        </div>
-                    </div>
-                </div>
+                <!-- Display tracks -->
+                @renderTracks(tracks)
+
                 <div class="row-fluid">
                     <div class="span2 time">
                         09:00-09:30
@@ -56,7 +47,7 @@
                     </div>
                 </div>
 
-                <!-- Print slots and presentations -->
+                <!-- Display slots and presentations -->
                 @for((slot, presentations) <- presentationsBySlot) {
 
                 <div class="row-fluid">
@@ -64,11 +55,11 @@
                         @renderSlot(slot)
                     </div>
                     <div class="span9 trackBg">
-                    @if(slot.isBreak) {
+                        @if(slot.isBreak) {
                         @renderBreak()
-                    } else {
+                        } else {
                         @renderPresentations(presentations)
-                    }
+                        }
                     </div>
                 </div>
                 }
