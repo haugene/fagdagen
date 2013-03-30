@@ -5,9 +5,8 @@
     @for(presentation <- presentations) {
     <div class="span3">
         <div>
-            <!-- TODO: All tracks aren`t trackOne, do this dynamically. -->
-            <div class='trackOne @{if(presentation.slot.equals(lastSlot)) "trackEnd"}'>
-                <div class="trackHeadline1 underline">
+            <div class='track @{if(presentation.slot.equals(lastSlot)) "trackEnd"}'>
+                <div class="headline underline">
                     @presentation.name
                 </div>
                 <div class="presenter">
