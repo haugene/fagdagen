@@ -3,7 +3,7 @@
 <!-- Render presentations, they're keynotes -->
 @for(presentation <- presentations) {
 <div class="trackKeynote">
-    <div class="trackHeadline2">
+    <div class="headline keynoteTrack@presentation.track.getRelativeRanking">
         @presentation.name
     </div>
     @presentation.description
