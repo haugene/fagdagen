@@ -1,4 +1,4 @@
-@(tracks: List[models.Track], presentationsBySlot: Map[models.Slot, List[models.Presentation]], lastSlot: models.Slot)
+@(tracks: List[models.Track], presentationsBySlot: Map[models.Slot, List[models.Presentation]], lastSlot: models.Slot, admin: Boolean)
 <!DOCTYPE html>
 
 <html>
@@ -15,6 +15,10 @@
 
 </head>
 <body>
+
+<script type="text/javascript">
+    console.log("Is admin: @admin");
+</script>
 
 <div class="navbar-fixed-top navbar navbar-inverse">
     <div class="navbar-inner">
@@ -48,6 +52,10 @@
                         }
                     </div>
                 </div>
+                }
+
+                @if(admin) {
+                    @renderAddNewSlot(tracks)
                 }
 
                 <!-- Fade out -->

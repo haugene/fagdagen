@@ -5,7 +5,7 @@
     @for(presentation <- presentations) {
     <div class="span3">
         <div>
-            <div class='track @{if(presentation.slot.equals(lastSlot)) "trackEnd"}'>
+            <div class='presentation  @{if(presentation.slot.equals(lastSlot)) "trackEnd"}'>
                 <div class="headline underline">
                     @presentation.name
                 </div>

@@ -20,7 +20,7 @@ public class Application extends Controller {
         TreeMap<Slot, List<Presentation>> presentationsBySlot = Slot.getPresentationsBySlot();
         Slot lastSlot = presentationsBySlot.lastKey();
 
-        return ok(index.render(Track.findAll(), presentationsBySlot, lastSlot));
+        return ok(index.render(Track.findAll(), presentationsBySlot, lastSlot, isUserLoggedIn()));
     }
 
     public static Result addData()
