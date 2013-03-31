@@ -1,5 +1,3 @@
-@(tracks: List[models.Track])
-
 <div class="row-fluid">
     <div class="span9 offset2 addSlot text-center">
         <a class="btn btn-primary btn-large" href="#addSlotModal" data-toggle="modal">
@@ -15,16 +13,6 @@
     </div>
     <form class="form-horizontal" style="margin-bottom: 0px">
         <div class="modal-body">
-            <div class="control-group">
-                <label for="selectTrack" class="control-label">Track</label>
-                <div class="controls">
-                    <select id="selectTrack">
-                        @for(track <- tracks) {
-                            <option>@track.name</option>
-                        }
-                    </select>
-                </div>
-            </div>
             <div class="control-group">
                 <label for="fromInput" class="control-label">Time</label>
                 <div class="controls">
