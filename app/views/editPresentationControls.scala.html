@@ -1,11 +1,14 @@
 @(presentation: Presentation)
 <div class="editArea">
     <div class="editAreaInner">
-        <a class="btn btn-danger" href="#deletePresentationModal@presentation.id" data-toggle="modal">
-            <i class="icon-trash icon-white"></i> Delete
-        </a>
-        <a class="btn btn-success" href="#editPresentationModal@presentation.id" data-toggle="modal">
-            <i class="icon-edit icon-white"></i> Edit
-        </a>
+        @helper.form(routes.Forms.deletePresentation, 'style -> "margin: 0px") {
+            <input type="text" style="display: none" value="@presentation.id" name="presentationId" />
+            <button type="submit" class="btn btn-danger">
+                <i class="icon-trash icon-white"></i> Delete
+            </button>
+            <a class="btn btn-success" href="#editPresentationModal@presentation.id" data-toggle="modal">
+                <i class="icon-edit icon-white"></i> Edit
+            </a>
+        }
     </div>
 </div>

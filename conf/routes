@@ -10,5 +10,9 @@ GET     /login                              controllers.Admin.login()
 POST    /login                              controllers.Admin.authenticate()
 GET     /logout                             controllers.Admin.logout()
 
+# Forms
+POST    /forms/savePresentation             controllers.Forms.savePresentation()
+POST    /forms/deletePresentation           controllers.Forms.deletePresentation()
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                       controllers.Assets.at(path="/public", file)

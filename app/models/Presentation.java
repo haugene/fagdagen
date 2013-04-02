@@ -45,6 +45,18 @@ public class Presentation extends Model {
     @Constraints.Required
     public Integer rank;
 
+    public Presentation() {
+    }
+
+    public Presentation(String name, String description, String presenter, Slot slot, Track track, Integer rank) {
+        this.name = name;
+        this.description = description;
+        this.presenter = presenter;
+        this.slot = slot;
+        this.track = track;
+        this.rank = rank;
+    }
+
     // Is this a presentation a keynote?(common for all tracks)
     public boolean isKeynote = false;
 
