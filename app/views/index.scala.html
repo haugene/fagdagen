@@ -45,10 +45,10 @@
                             @renderBreak()
                         }
                         @if(slot.containsKeynote) {
-                            @renderKeynotes(slot.presentations)
+                            @renderKeynotes(slot.presentations, isAdmin)
                         }
                         @if(!slot.isBreak && !slot.containsKeynote) {
-                            @renderPresentations(slot.presentations, lastSlot)
+                            @renderPresentations(slot.presentations, tracks, lastSlot, isAdmin)
                         }
                     </div>
                 </div>

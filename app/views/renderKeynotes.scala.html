@@ -1,4 +1,4 @@
-@(presentations: List[models.Presentation])
+@(presentations: List[models.Presentation], admin: Boolean)
 
 <!-- Render presentations, they're keynotes -->
 @for(presentation <- presentations) {
@@ -10,5 +10,18 @@
         @presentation.presenter
     </div>
     @presentation.description
+    <!-- Add edit buttons if user is admin -->
+    @if(admin) {
+        <div class="editArea">
+            <div class="editAreaInner">
+                <button class="btn-danger btn">
+                        Delete
+                </button>
+                <button class="btn-success btn">
+                        Edit
+                </button>
+            </div>
+        </div>
+    }
 </div>
 }

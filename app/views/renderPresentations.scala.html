@@ -1,20 +1,45 @@
-@(presentations: List[models.Presentation], lastSlot: models.Slot)
+@(presentations: List[models.Presentation], tracks: List[models.Track], lastSlot: models.Slot, admin: Boolean)
 
 <!-- Render presentations -->
 <div class="row-fluid">
-    @for(presentation <- presentations) {
-    <div class="span3">
-        <div>
-            <div class='presentation  @{if(presentation.slot.equals(lastSlot)) "trackEnd"}'>
-                <div class="headline underline">
-                    @presentation.name
-                </div>
-                <div class="presenter">
-                    @presentation.presenter
-                </div>
-                @presentation.description
+    @for(track <- tracks) {
+        <div class="span3">
+            <div>
+                @for(presentation <- presentations) {
+                    @if(presentation.track.getRelativeRanking == track.getRelativeRanking) {
+                        <div class='presentation  @{if(presentation.slot.equals(lastSlot)) "trackEnd"}'>
+                        <div class="headline underline">
+                            @presentation.name
+                        </div>
+                        <div class="presenter">
+                            @presentation.presenter
+                        </div>
+                        @presentation.description
+                        <!-- Add edit buttons if user is admin -->
+                        @if(admin) {
+                            <div class="editArea">
+                                <div class="editAreaInner">
+                                    <a class="btn btn-danger" href="#deletePresentationModal@presentation.id" data-toggle="modal">
+                                        <i class="icon-trash icon-white"></i> Delete
+                                    </a>
+                                    <a class="btn btn-success" href="#editPresentationModal@presentation.id" data-toggle="modal">
+                                        <i class="icon-edit icon-white"></i> Edit
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="addPresentation text-center">
+                            <a class="btn btn" href="#tmplol" data-toggle="modal">
+                                <i class="icon-plus"></i> Add new presentation
+                            </a>
+                        }
+                        </div>
+                        @if(admin) {
+                            @editPresentationModal(presentation)
+                        }
+                    }
+                }
             </div>
         </div>
-    </div>
     }
 </div>
