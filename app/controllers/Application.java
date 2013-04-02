@@ -1,6 +1,5 @@
 package controllers;
 
-import models.Presentation;
 import models.Slot;
 import models.Track;
 import org.apache.commons.lang3.StringUtils;
@@ -10,17 +9,14 @@ import utils.InitialDataUtil;
 import views.html.*;
 
 import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
 
 public class Application extends Controller {
   
     public static Result index()
     {
-        TreeMap<Slot, List<Presentation>> presentationsBySlot = Slot.getPresentationsBySlot();
-        Slot lastSlot = presentationsBySlot.lastKey();
+        List<Slot> slots = Slot.getSortedSlots();
 
-        return ok(index.render(Track.findAll(), presentationsBySlot, lastSlot, isUserLoggedIn()));
+        return ok(index.render(Track.findAll(), slots, slots.get(slots.size()-1), isUserLoggedIn()));
     }
 
     /**

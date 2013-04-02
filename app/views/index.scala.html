@@ -1,4 +1,4 @@
-@(tracks: List[models.Track], presentationsBySlot: Map[models.Slot, List[models.Presentation]], lastSlot: models.Slot, admin: Boolean)
+@(tracks: List[models.Track], slots: List[models.Slot], lastSlot: models.Slot, isAdmin: Boolean)
 <!DOCTYPE html>
 
 <html>
@@ -17,7 +17,7 @@
 <body>
 
 <script type="text/javascript">
-    console.log("Is admin: @admin");
+    console.log("Is admin: @isAdmin");
 </script>
 
 <div class="navbar-fixed-top navbar navbar-inverse">
@@ -34,27 +34,27 @@
                 @renderTracks(tracks)
 
                 <!-- Display slots and presentations -->
-                @for((slot, presentations) <- presentationsBySlot) {
+                @for(slot <- slots) {
 
                 <div class="row-fluid">
                     <div class="span2 time">
                         @renderSlot(slot)
                     </div>
                     <div class="span9 trackBg">
-                        @if(slot.isBreak) {
+                        @if(slot.isBreak()) {
                             @renderBreak()
                         }
-                        @if(slot.containsKeynote) {
-                            @renderKeynotes(presentations, admin)
+                        @if(slot.containsKeynote()) {
+                            @renderKeynotes(slot.presentations, isAdmin)
                         }
-                        @if(!slot.isBreak && !slot.containsKeynote) {
-                            @renderPresentations(presentations, tracks, lastSlot, admin)
+                        @if(slot.containsPresentations()) {
+                            @renderPresentations(slot.presentations, tracks, lastSlot, isAdmin)
                         }
                     </div>
                 </div>
                 }
 
-                @if(admin) {
+                @if(isAdmin) {
                     @renderAddNewSlot()
                 }
 
