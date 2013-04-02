@@ -40,28 +40,15 @@ public class Slot implements Comparable<Slot>{
     public static Model.Finder<Long, Slot> find = new Model.Finder<Long, Slot>(Long.class, Slot.class);
 
     /**
-     * A method for reading presentations in an orderly fashion
-     * @return a map of all the slots and the presentations that is attributed to it
+     * Retrieves all slots from database and sorts them
+     * @return sorted list of slots
      */
-    public static TreeMap<Slot, List<Presentation>> getPresentationsBySlot()
+    public static List<Slot> getSortedSlots()
     {
-        // Get all the slots
-        List<Slot> slots = find.all();
+        List<Slot> allSlots = find.all();
+        Collections.sort(allSlots);
 
-        /*
-         * Now, create a map of all slots and their presentations.
-         * We want the map to be sorted, let's go for a TreeMap
-         */
-        TreeMap<Slot, List<Presentation>> result = new TreeMap<Slot, List<Presentation>>();
-
-        for(Slot slot : slots)
-        {
-            // For each slot, add the slot and its presentations
-            result.put(slot, slot.presentations);
-        }
-
-        // Our work here is done, return it
-        return result;
+        return allSlots;
     }
 
     /**
