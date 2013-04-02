@@ -12,16 +12,11 @@
     @presentation.description
     <!-- Add edit buttons if user is admin -->
     @if(admin) {
-        <div class="editArea">
-            <div class="editAreaInner">
-                <button class="btn-danger btn">
-                        Delete
-                </button>
-                <button class="btn-success btn">
-                        Edit
-                </button>
-            </div>
-        </div>
+       @editPresentationControls(presentation)
+    }
+    <!--  Add edit presentation modal if user is admin -->
+    @if(admin) {
+        @modals.editPresentationModal(presentation)
     }
 </div>
 }

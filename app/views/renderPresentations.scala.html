@@ -8,38 +8,34 @@
                 @for(presentation <- presentations) {
                     @if(presentation.track.getRelativeRanking == track.getRelativeRanking) {
                         <div class='presentation  @{if(presentation.slot.equals(lastSlot)) "trackEnd"}'>
-                        <div class="headline underline">
-                            @presentation.name
-                        </div>
-                        <div class="presenter">
-                            @presentation.presenter
-                        </div>
-                        @presentation.description
+                            <div class="headline underline">
+                                @presentation.name
+                            </div>
+                            <div class="presenter">
+                                @presentation.presenter
+                            </div>
+                            @presentation.description
+
                         <!-- Add edit buttons if user is admin -->
                         @if(admin) {
-                            <div class="editArea">
-                                <div class="editAreaInner">
-                                    <a class="btn btn-danger" href="#deletePresentationModal@presentation.id" data-toggle="modal">
-                                        <i class="icon-trash icon-white"></i> Delete
-                                    </a>
-                                    <a class="btn btn-success" href="#editPresentationModal@presentation.id" data-toggle="modal">
-                                        <i class="icon-edit icon-white"></i> Edit
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="addPresentation text-center">
-                            <a class="btn btn" href="#tmplol" data-toggle="modal">
-                                <i class="icon-plus"></i> Add new presentation
-                            </a>
+                            @editPresentationControls(presentation)
                         }
                         </div>
+                        <!--  Add edit presentation modal if user is admin -->
                         @if(admin) {
-                            @editPresentationModal(presentation)
+                            @modals.editPresentationModal(presentation)
                         }
                     }
                 }
             </div>
+            <!-- Add new presentation button if user is admin -->
+            @if(admin) {
+                <div class="addPresentation text-center">
+                    <a class="btn btn" href="#newPresentationModal" data-toggle="modal">
+                        <i class="icon-plus"></i> Add new presentation
+                    </a>
+                </div>
+            }
         </div>
     }
 </div>
