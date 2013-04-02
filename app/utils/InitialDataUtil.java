@@ -1,6 +1,7 @@
 package utils;
 
 import com.avaje.ebean.Ebean;
+import domain.enums.SlotType;
 import models.Presentation;
 import models.Slot;
 import models.Track;
@@ -31,13 +32,13 @@ public class InitialDataUtil {
         addSlot(9, 0, 30, SlotType.KEYNOTE);
 
         // Second presentation slot
-        addSlot(9, 45, 30, SlotType.PRESENTATIONS);
+        addSlot(9, 45, 30, SlotType.PRESENTATION);
 
         // Third presentation slot
-        addSlot(10, 30, 30, SlotType.PRESENTATIONS);
+        addSlot(10, 30, 30, SlotType.PRESENTATION);
 
         // Fourth presentation slot
-        addSlot(11, 15, 30, SlotType.PRESENTATIONS);
+        addSlot(11, 15, 30, SlotType.PRESENTATION);
 
         // Break 1
         addSlot(9, 30, 15, SlotType.BREAK);
@@ -59,14 +60,14 @@ public class InitialDataUtil {
     private static void addSlot(Integer hour, Integer minute, Integer duration, SlotType type)
     {
         // Create slot
-        Slot slot = crateSlot(hour, minute, duration);
+        Slot slot = crateSlot(hour, minute, duration, type);
 
         // Save it
         Ebean.save(slot);
 
         // Do something for the slot, depending on which type it is
         switch (type) {
-            case PRESENTATIONS:
+            case PRESENTATION:
                 addPresentations(slot);
                 break;
 
@@ -75,8 +76,6 @@ public class InitialDataUtil {
                 break;
 
             case BREAK:
-                slot.isBreak = true;
-                Ebean.update(slot);
                 break;
 
             default:
@@ -141,25 +140,21 @@ public class InitialDataUtil {
 
     /**
      * Creates a slot object
+     *
      * @param hour the hour of the day this slot starts
      * @param minute the minute of the hour this slot start
      * @param duration slot length
+     * @param type
      * @return fresh slot
      */
-    private static Slot crateSlot(Integer hour, Integer minute, Integer duration) {
+    private static Slot crateSlot(Integer hour, Integer minute, Integer duration, SlotType type) {
         // Create a new slot
         Slot slot = new Slot();
 
         // Set startTime
         slot.startTime = new DateTime(2013, 4, 25, hour, minute).toDate();
         slot.endTime = new DateTime(slot.startTime).plusMinutes(duration).toDate();
+        slot.slotType = type;
         return slot;
-    }
-
-    /**
-     * Types of slots
-     */
-    private enum SlotType {
-        BREAK, KEYNOTE, PRESENTATIONS
     }
 }

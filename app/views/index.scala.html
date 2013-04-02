@@ -41,13 +41,13 @@
                         @renderSlot(slot)
                     </div>
                     <div class="span9 trackBg">
-                        @if(slot.isBreak) {
+                        @if(slot.isBreak()) {
                             @renderBreak()
                         }
-                        @if(slot.containsKeynote) {
+                        @if(slot.containsKeynote()) {
                             @renderKeynotes(slot.presentations, isAdmin)
                         }
-                        @if(!slot.isBreak && !slot.containsKeynote) {
+                        @if(slot.containsPresentations()) {
                             @renderPresentations(slot.presentations, tracks, lastSlot, isAdmin)
                         }
                     </div>

@@ -1,6 +1,6 @@
 package controllers;
 
-import forms.Login;
+import domain.forms.Login;
 import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;

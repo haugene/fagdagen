@@ -1,5 +1,6 @@
 package models;
 
+import domain.enums.SlotType;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import play.data.validation.Constraints;
@@ -30,7 +31,8 @@ public class Slot implements Comparable<Slot>{
     @Constraints.Required
     public Date endTime;
 
-    public boolean isBreak = false;
+    @Constraints.Required
+    public SlotType slotType;
 
     // Presentations for this Slot
     @OneToMany(mappedBy="slot", cascade= CascadeType.ALL)
@@ -49,25 +51,6 @@ public class Slot implements Comparable<Slot>{
         Collections.sort(allSlots);
 
         return allSlots;
-    }
-
-    /**
-     * Checks if this Slot contains one or more keynote presentations
-     * @return
-     */
-    public Boolean containsKeynote()
-    {
-        for (Presentation presentation : presentations)
-        {
-            if (presentation.isKeynote)
-            {
-                // If any presentation is a keynote, return true
-                return true;
-            }
-        }
-
-        // None of the presentations were keynotes, return false
-        return false;
     }
 
     @Override
@@ -94,5 +77,20 @@ public class Slot implements Comparable<Slot>{
         String minutes = String.valueOf(dateTime.getMinuteOfHour());
 
         return StringUtils.leftPad(hours, 2, "0") + ":" + StringUtils.leftPad(minutes, 2, "0");
+    }
+
+    public Boolean isBreak()
+    {
+        return SlotType.BREAK.equals(slotType);
+    }
+
+    public Boolean containsKeynote()
+    {
+        return SlotType.KEYNOTE.equals(slotType);
+    }
+
+    public Boolean containsPresentations()
+    {
+        return SlotType.PRESENTATION.equals(slotType);
     }
 }
