@@ -5,7 +5,6 @@ import play.data.Form;
 import play.mvc.Controller;
 import play.mvc.Result;
 import views.html.login;
-import views.html.admin;
 
 import static play.data.Form.form;
 
@@ -19,13 +18,6 @@ public class Admin extends Controller {
      */
     public static Result login() {
         return ok(login.render(form(Login.class)));
-    }
-
-    /**
-     * Admin page.
-     */
-    public static Result admin() {
-        return ok(admin.render("Success!"));
     }
 
     /**
