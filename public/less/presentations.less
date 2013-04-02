@@ -7,8 +7,15 @@
   border-radius: 0px;
   margin-bottom: @largeGap;
   border: 1px solid #ccc;
-  border-top: 1px solid #eee;
+  border-top: 1px solid @trackOneColor;
   font-family: "ronnia-condensed-1","ronnia-condensed-2", sans-serif;
+}
+
+.addPresentation {
+  .presentation;
+  border-radius: 5px;
+  border: 3px dashed darken(@addSlotColor, 30%);
+  background-color: @addSlotColor;
 }
 
 .keynoteTrack1 {
@@ -35,4 +42,16 @@
   font-weight: bold;
   font-size: 1.2em;
   color: @darkGray;
+}
+
+.editArea {
+  margin-top: @smallGap;
+  border-top: 1px solid #ccc;
+  margin-left: -10px;
+  margin-right: -10px;
+  margin: @smallGap -10px 0xp -10px;
+}
+
+.editAreaInner {
+  margin: 10px 10px 0px 10px;
 }
