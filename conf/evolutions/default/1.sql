@@ -3,7 +3,7 @@
 create table presentation (
   id                        bigint not null,
   name                      varchar(255),
-  description               varchar(255),
+  description               text,
   presenter                 varchar(255),
   slot_id                   bigint,
   track_id                  bigint,
