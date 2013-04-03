@@ -1,35 +1,36 @@
 @(presentation: Presentation)
 <div class="modal hide" id="editPresentationModal@presentation.id">
-<div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h3>Edit presentation</h3>
-</div>
-<form class="form" style="margin-bottom: 0px">
-    <div class="modal-body">
-        <div class="controls controls-row">
-            <label class="span10" for="name">Name</label>
-            <label class="span2" for="rank">Rank</label>
-        </div>
-        <div class="controls controls-row">
-            <input type="text" class="span10" id="name" value="@presentation.name" />
-            <input type="text" class="span2" id="rank" placeholder="e.q. 1" value="@presentation.rank" />
-        </div>
-        <div class="controls controls-row">
-            <label class="span8" for="presenters">Presenters</label>
-        </div>
-        <div class="controls controls-row">
-            <input type="text" class="span12" id="presenters" value="@presentation.presenter" />
-        </div>
-        <div class="controls controls-row">
-            <label class="span12" for="abstract">Abstract</label>
-        </div>
-        <div class="controls controls-row">
-            <textarea class="span12" rows="10" id="abstract">@presentation.description</textarea>
-        </div>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Edit presentation</h3>
     </div>
-    <div class="modal-footer">
-        <a href="#" data-dismiss="modal" class="btn"> <i class="icon-remove icon-black"></i> Cancel</a>
-        <a href="#" class="btn btn-success" data-dismiss="modal"> <i class="icon-check icon-white"></i> Save changes</a>
-    </div>
-</form>
+    @helper.form(routes.Forms.editPresentation, 'class -> "form", 'style -> "margin-bottom: 0px") {
+        <div class="modal-body">
+            <div class="controls controls-row">
+                <label class="span10" for="name">Name</label>
+                <label class="span2" for="rank">Rank</label>
+            </div>
+            <div class="controls controls-row">
+                <input type="text" class="span10" id="name" name="name" value="@presentation.name"/>
+                <input type="text" class="span2" id="rank" name="rank" placeholder="e.q. 1" value="@presentation.rank"/>
+            </div>
+            <div class="controls controls-row">
+                <label class="span8" for="presenters">Presenters</label>
+            </div>
+            <div class="controls controls-row">
+                <input type="text" class="span12" id="presenters" name="presenters" value="@presentation.presenter"/>
+            </div>
+            <div class="controls controls-row">
+                <label class="span12" for="abstract">Abstract</label>
+            </div>
+            <div class="controls controls-row">
+                <textarea class="span12" rows="10" id="abstract" name="abstract">@presentation.description</textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#" data-dismiss="modal" class="btn"> <i class="icon-remove icon-black"></i> Cancel</a>
+            <button type="submit" class="btn btn-success"> <i class="icon-check icon-white"></i> Save changes</button>
+        </div>
+        <input type="text" value="@presentation.id" style="display: none" name="presentationId" />
+    }
 </div>

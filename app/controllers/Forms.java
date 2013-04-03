@@ -57,6 +57,12 @@ public class Forms extends Controller {
         return redirect(routes.Application.index());
     }
 
+    public static Result editPresentation()
+    {
+        flash("form_result", "Edit button clicked");
+        return redirect(routes.Application.index());
+    }
+
     /**
      * Reads a HTML form dynamically. Retrieves the id of a presentation and deletes it from the database.
      * @return redirect to index

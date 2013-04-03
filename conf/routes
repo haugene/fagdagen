@@ -13,6 +13,7 @@ GET     /logout                             controllers.Admin.logout()
 # Forms
 POST    /forms/savePresentation             controllers.Forms.savePresentation()
 POST    /forms/deletePresentation           controllers.Forms.deletePresentation()
+POST    /forms/editPresentation             controllers.Forms.editPresentation()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                       controllers.Assets.at(path="/public", file)
