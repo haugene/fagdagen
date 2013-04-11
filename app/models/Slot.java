@@ -108,4 +108,9 @@ public class Slot implements Comparable<Slot>{
     {
         return SlotType.PRESENTATION.equals(slotType);
     }
+
+    public Boolean hasNoPresentations()
+    {
+        return presentations.isEmpty();
+    }
 }

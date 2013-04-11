@@ -40,8 +40,13 @@
                 <!-- Display slots and presentations -->
                 @for(slot <- slots) {
 
+                <!-- If this is not a break and the slot has no presentations, display delete slot option -->
+                @if(slot.hasNoPresentations() && !slot.isBreak()) {
+                    @deleteSlotField(slot)
+                }
+
                 <div class="row-fluid">
-                    <div class="span12 trackBg">
+                    <div class="span12">
                         <!-- Rendering for different SlotTypes(presentations, keynote, break) -->
                         @if(slot.isBreak()) {
                             @renderBreak()
@@ -69,6 +74,19 @@
                 </div>
             </div>
         </div>
+
+        @deleteSlotField(slot: models.Slot) = {
+        <div class="row-fluid">
+            <div class="span12 text-center newSlot">
+                @helper.form(routes.Forms.deleteSlot, 'class -> "form", 'style -> "margin-bottom: 0px") {
+                <input type="text" value="@slot.id" style="display: none" name="slotId" />
+                <span>This is an empty slot. You can add presentations below, or you can hit</span>
+                <button type="submit" class="btn btn-danger">DELETE</button>
+                }
+            </div>
+        </div>
+        }
+
     </div>
 </div>
 </body>
