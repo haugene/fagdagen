@@ -4,6 +4,7 @@ import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -14,7 +15,7 @@ import java.util.List;
  * @author kristian.haugene
  */
 @Entity
-public class Track extends Model implements Comparable<Track>{
+public class Track extends Model implements Comparable<Track> {
 
     @Id
     public Long id;
@@ -63,6 +64,19 @@ public class Track extends Model implements Comparable<Track>{
 
         return tracks;
     }
+
+    public List<Presentation> getPresentations(Slot slot) {
+        List<Presentation> presentations = new ArrayList<Presentation>();
+
+        for(Presentation presentation: slot.presentations) {
+            if(presentation.track.id.equals(this.id)) {
+                presentations.add(presentation);
+            }
+        }
+
+        return presentations;
+    }
+
 
     @Override
     public int compareTo(Track that) {

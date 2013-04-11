@@ -14,7 +14,7 @@ import java.util.*;
  * @author kristian.haugene
  */
 @Entity
-public class Presentation extends Model {
+public class Presentation extends Model implements Comparable<Presentation> {
 
     @Id
     public Long id;
@@ -63,4 +63,8 @@ public class Presentation extends Model {
     // Create a Finder for Presentation objects
     public static Finder<Long, Presentation> find = new Finder(Long.class, Presentation.class);
 
+    @Override
+    public int compareTo(Presentation that) {
+        return this.rank.compareTo(that.rank);
+    }
 }
