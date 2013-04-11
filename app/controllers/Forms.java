@@ -70,32 +70,6 @@ public class Forms extends Controller {
         return redirect(routes.Application.index());
     }
 
-    private static Boolean updatePresentation(Long id, String name, String presenter, String description, Integer rank) {
-
-        // Check that we have valid input
-        if(isNull(id) || isNull(rank) || isBlank(name) || isBlank(presenter) || isBlank(description))
-        {
-            return false;
-        }
-
-        // Get the presentation object
-        Presentation presentation = Presentation.find.byId(id);
-
-        if(presentation == null)
-        {
-            return false;
-        }
-
-        presentation.name = name;
-        presentation.presenter = presenter;
-        presentation.description = description;
-        presentation.rank = rank;
-
-        Ebean.update(presentation);
-
-        return true;
-    }
-
     /**
      * Reads a HTML form dynamically. Retrieves the id of a presentation and deletes it from the database.
      * @return redirect to index
@@ -115,6 +89,42 @@ public class Forms extends Controller {
         }
 
         return redirect(routes.Application.index());
+    }
+
+    /**
+     * Updates a Presentation with given information.
+     * @param id the presentation to update
+     * @param name
+     * @param presenter
+     * @param description
+     * @param rank
+     * @return
+     */
+    private static Boolean updatePresentation(Long id, String name, String presenter, String description, Integer rank) {
+
+        // Check that we have valid input
+        if(isNull(id) || isNull(rank) || isBlank(name) || isBlank(presenter) || isBlank(description))
+        {
+            return false;
+        }
+
+        // Get the presentation object
+        Presentation presentation = Presentation.find.byId(id);
+
+        if(presentation == null)
+        {
+            return false;
+        }
+
+        // Update fields
+        presentation.name = name;
+        presentation.presenter = presenter;
+        presentation.description = description;
+        presentation.rank = rank;
+
+        // Update db and return
+        Ebean.update(presentation);
+        return true;
     }
 
     private static boolean isNull(Object object)
