@@ -13,6 +13,7 @@ import java.util.List;
  * Within a track, there are presentations.
  *
  * @author kristian.haugene
+ * @author daniel.nordstrom.carlsen
  */
 @Entity
 public class Track extends Model implements Comparable<Track> {

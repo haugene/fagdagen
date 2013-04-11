@@ -1,5 +1,4 @@
 @(slot: Slot, track: Track)
-
 <div class="modal hide" id='newPresentationModal@track.id@slot.id'>
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -12,20 +11,32 @@
                 <label class="span2" for="rank">Rank</label>
             </div>
             <div class="controls controls-row">
-                <input type="text" class="span10" name="name" id="name">
-                <input type="text" class="span2" name="rank" id="rank" placeholder="e.q. 1" />
+                <input type="text" class="span10" name="name" id="name" autofocus required>
+                <input type="number" class="span2" name="rank" id="rank" min="1" max="1000" required placeholder="e.q. 1" />
             </div>
             <div class="controls controls-row">
-                <label class="span8" for="presenter">Presenter</label>
+                <label class="span8" for="presenter">Presenters</label>
+                <label class="span4" for="businessUnit">Business unit</label>
             </div>
             <div class="controls controls-row">
-                <input type="text" class="span12" name="presenter" id="presenter" />
+                <input type="text" class="span8" name="presenter" id="presenter" required />
+                <div class="span4">
+                    <select name="businessUnit" id="businessUnit" style="width: 100%" required>
+                        <option>AD&amp;M</option>
+                        <option>B-Tech</option>
+                        <option>BIM</option>
+                        <option>Bergen</option>
+                        <option>Fredrikstad</option>
+                        <option>Stavanger</option>
+                        <option>Trondheim</option>
+                    </select>
+                </div>
             </div>
             <div class="controls controls-row">
                 <label class="span12" for="abstract">Abstract</label>
             </div>
             <div class="controls controls-row">
-                <textarea class="span12" rows="10" name="description" id="abstract"></textarea>
+                <textarea class="span12" rows="10" name="description" id="abstract" required></textarea>
             </div>
         </div>
         <div class="modal-footer">

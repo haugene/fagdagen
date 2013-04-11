@@ -5,6 +5,7 @@ create table presentation (
   name                      varchar(255),
   description               text,
   presenter                 varchar(255),
+  business_unit             varchar(255),
   slot_id                   bigint,
   track_id                  bigint,
   rank                      integer,

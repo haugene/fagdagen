@@ -12,6 +12,7 @@ import java.util.*;
  * Represents a presentation.
  *
  * @author kristian.haugene
+ * @author daniel.nordstrom.carlsen
  */
 @Entity
 public class Presentation extends Model implements Comparable<Presentation> {
@@ -31,6 +32,9 @@ public class Presentation extends Model implements Comparable<Presentation> {
     @Constraints.Required
     public String presenter;
 
+    @Constraints.Required
+    public String businessUnit;
+
     // In what slot(time)
     @Constraints.Required
     @ManyToOne
@@ -48,10 +52,11 @@ public class Presentation extends Model implements Comparable<Presentation> {
     public Presentation() {
     }
 
-    public Presentation(String name, String description, String presenter, Slot slot, Track track, Integer rank) {
+    public Presentation(String name, String description, String presenter, String businessUnit, Slot slot, Track track, Integer rank) {
         this.name = name;
         this.description = description;
         this.presenter = presenter;
+        this.businessUnit = businessUnit;
         this.slot = slot;
         this.track = track;
         this.rank = rank;

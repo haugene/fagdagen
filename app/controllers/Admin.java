@@ -10,6 +10,9 @@ import static play.data.Form.form;
 
 /**
  * Controller for the admin pages
+ *
+ * @author kristian.haugene
+ * @author daniel.nordstrom.carlsen
  */
 public class Admin extends Controller {
 

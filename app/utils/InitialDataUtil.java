@@ -104,6 +104,7 @@ public class InitialDataUtil {
         presentation.name = "Hello World";
         presentation.description = "This is a description of the presentation. Formally we like to call it an abstract. This should give a brief introduction to the topic";
         presentation.presenter = "Stephen Hawking";
+        presentation.businessUnit = "AD&M";
         presentation.slot = slot;
         presentation.track = track;
 
@@ -123,6 +124,7 @@ public class InitialDataUtil {
         presentation.name = "Keynote Yeah";
         presentation.description = "In this keynote, something interesting will be discussed. Everyone should be here or be []";
         presentation.presenter = "Someone Awesome";
+        presentation.businessUnit = "B-Tech";
         presentation.slot = slot;
 
         // Assign to the first track
