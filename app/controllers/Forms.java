@@ -78,18 +78,18 @@ public class Forms extends Controller {
      */
     public static Result deletePresentation() {
 
-        DynamicForm requestData = form().bindFromRequest();
+        DynamicForm form = form().bindFromRequest();
 
-        // Might throw exception parsing number
-        try {
-            Long id = Long.parseLong(requestData.get("presentationId"));
-            Presentation presentation = Presentation.find.byId(id);
-            Ebean.delete(presentation);
-        }catch (Exception e)
+        Long id = getLong(form, "presentationId");
+
+        if(isNull(id))
         {
             flash("form_result", "Could not delete presentation, could not parse ID");
+        } else
+        {
+            Presentation presentation = Presentation.find.byId(id);
+            Ebean.delete(presentation);
         }
-
         return redirect(routes.Application.index());
     }
 
@@ -120,6 +120,27 @@ public class Forms extends Controller {
             Ebean.save(slot);
         }
 
+        return redirect(routes.Application.index());
+    }
+
+    /**
+     * Reads a HTML form dynamically. Retrieves the id of a slot and deletes it from the database.
+     * @return redirect to index
+     */
+    public static Result deleteSlot() {
+
+        DynamicForm form = form().bindFromRequest();
+
+        Long id = getLong(form, "slotId");
+
+        if(isNull(id))
+        {
+            flash("form_result", "Could not delete slot, could not parse ID");
+        } else
+        {
+            Slot slot = Slot.find.byId(id);
+            Ebean.delete(slot);
+        }
         return redirect(routes.Application.index());
     }
 
