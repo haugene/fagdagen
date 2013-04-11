@@ -1,10 +1,12 @@
 package controllers;
 
 import com.avaje.ebean.Ebean;
+import domain.enums.SlotType;
 import models.Presentation;
 import models.Slot;
 import models.Track;
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.DateTime;
 import play.data.DynamicForm;
 import play.mvc.Controller;
 import play.mvc.Result;
@@ -89,6 +91,47 @@ public class Forms extends Controller {
         }
 
         return redirect(routes.Application.index());
+    }
+
+    /**
+     * Reads a HTML form dynamically. Retrieves fields for Slot and saves it to database
+     * @return redirect to index
+     */
+    public static Result saveSlot()
+    {
+        DynamicForm form = form().bindFromRequest();
+
+        String fromTime = getString(form, "fromTime");
+        String toTime = getString(form, "toTime");
+        SlotType slotType = getSlotType(getString(form, "slotType"));
+
+        if(isBlank(fromTime) || isBlank(toTime))
+        {
+            flash("form_result", "Could not save slot, missing fields");
+        } else
+        {
+            Slot slot = new Slot();
+            String[] start = fromTime.split(":");
+            String[] end = toTime.split(":");
+            slot.startTime = new DateTime(2013, 4, 25, Integer.parseInt(start[0]), Integer.parseInt(start[1])).toDate();
+            slot.endTime = new DateTime(2013, 4, 25, Integer.parseInt(end[0]), Integer.parseInt(end[1])).toDate();
+            slot.slotType = slotType;
+
+            Ebean.save(slot);
+        }
+
+        return redirect(routes.Application.index());
+    }
+
+    private static SlotType getSlotType(String slotType) {
+        if("BREAK".equalsIgnoreCase(slotType))
+        {
+            return SlotType.BREAK;
+        } else if ("KEYNOTE".equalsIgnoreCase(slotType))
+        {
+            return SlotType.KEYNOTE;
+        }
+        return SlotType.PRESENTATION;
     }
 
     /**
