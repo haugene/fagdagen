@@ -7,15 +7,7 @@
 
 body {
   background-color: @background;
-  padding: 30px;
-  //background-image: url(../images/body.gif);
-}
-
-.content {
-//  width: 1400px;
-//  position: absolute;
-//  left: 50%;
-//  margin-left: -700px;
+  padding: 15px;
 }
 
 .menu {
@@ -38,7 +30,6 @@ body {
   text-transform: uppercase;
   font-weight: bold;
   text-weight: bold;
-//  text-shadow: 0px -1px 0px white;
 }
 
 .break {
@@ -60,10 +51,6 @@ body {
   margin-bottom: @largeGap;
 }
 
-.row-fluid {
-//  width: 1400px;
-}
-
 .addSlot {
   .presentation;
   margin-bottom: 0px;
@@ -72,33 +59,44 @@ body {
   background-color: @addSlotColor;
 }
 
-.mobileTrackName {
-  -webkit-transform: rotate(270deg);
-  -moz-transform: rotate(270deg);
-  -o-transform: rotate(270deg);
-  writing-mode: lr-tb;
-  position: absolute;
+@media (max-width: 767px) and (orientation:landscape) {
+  .visible-landscape {
+    display: inherit !important ;
+  }
+
+  .visible-portrait {
+    display: none !important;
+  }
 }
 
-//.container {
-//  position: relative;
-//  width: 328px;
-//  height: 170px;
-//}
-//
-//.bgbg {
-//  background-color: red;
-//  position: absolute;
-//  height: 100%;
-//  width: 20px;
-//  margin-left: 47%;
-//  top: 0;
-//  left: 0;
-//}
-//
-//.pres {
-//  position: absolute;
-//  top: 0;
-//  left: 0;
-//  z-index: 10;
-//}
+@media (max-width: 767px) and (orientation:portrait) {
+  .visible-landscape {
+    display: none !important;
+  }
+  .visible-portrait {
+    display: inherit !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .visible-landscape {
+    display: inherit !important ;
+  }
+
+  .visible-portrait {
+    display: none !important;
+  }
+}
+
+.rotate {
+  .presentation;
+  .text-center;
+  color: #00a0d7;
+}
+
+.rotateIcon {
+  height: 300px;
+  background-image: url(../images/rotate.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+}

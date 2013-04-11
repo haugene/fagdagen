@@ -7,7 +7,9 @@
   border-radius: 0px;
   margin-bottom: @largeGap;
   border: 1px solid #ccc;
-  border-top: 1px solid @trackOneColor;
+  border-top: 1px solid #eee;
+  border-top-width: 2px;
+  border-bottom-width: 4px;
   font-family: "ronnia-condensed-1","ronnia-condensed-2", sans-serif;
 }
 
@@ -28,6 +30,21 @@
 
 .keynoteTrack3 {
   color: @trackThreeColor !important;
+}
+
+.trackColor1 {
+  border-top-color: lighten(@trackOneColor, 15%);
+  border-bottom-color: @trackOneColor;
+}
+
+.trackColor2 {
+  border-top-color: lighten(@trackTwoColor, 15%);
+  border-bottom-color: @trackTwoColor;
+}
+
+.trackColor3 {
+  border-top-color: lighten(@trackThreeColor, 15%);
+  border-bottom-color: @trackThreeColor;
 }
 
 .presenter {
