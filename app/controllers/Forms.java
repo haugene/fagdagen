@@ -23,24 +23,14 @@ public class Forms extends Controller {
      * @return redirect to index
      */
     public static Result savePresentation() {
-        DynamicForm requestData = form().bindFromRequest();
+        DynamicForm form = form().bindFromRequest();
 
-        String name = requestData.get("name");
-        String presenter = requestData.get("presenter");
-        String description = requestData.get("description");
-
-        Long slotId = null;
-        Long trackId = null;
-        Integer rank = null;
-        // Added try/catch to parsing.
-        try {
-            slotId = Long.parseLong(requestData.get("slot"));
-            trackId = Long.parseLong(requestData.get("track"));
-            rank = Integer.parseInt(requestData.get("rank"));
-        } catch (Exception e)
-        {
-            // Do nothing, let the values be null
-        }
+        String name = getString(form, "name");
+        String presenter = getString(form, "presenter");
+        String description = getString(form, "description");
+        Long slotId = getLong(form, "slot");
+        Long trackId = getLong(form, "track");
+        Integer rank = getInteger(form, "rank");
 
         if(isBlank(name) || isBlank(presenter) || isBlank(description) || isNull(slotId) || isNull(trackId) || isNull(rank))
         {
@@ -57,9 +47,26 @@ public class Forms extends Controller {
         return redirect(routes.Application.index());
     }
 
+    /**
+     * Reads a HTML form dynamically. Retrieves fields for a presentation, and updates corresponding entry in the database.
+     * @return redirect to index
+     */
     public static Result editPresentation()
     {
-        flash("form_result", "Edit button clicked");
+        DynamicForm form = form().bindFromRequest();
+
+        String name = getString(form, "name");
+        String presenter = getString(form, "presenters");
+        String description = getString(form, "abstract");
+        Integer rank = getInteger(form, "rank");
+        Long id = getLong(form, "presentationId");
+
+        Boolean success = updatePresentation(id, name, presenter, description, rank);
+        if(!success)
+        {
+            flash("form_result", "Could not update presentation, missing data");
+        }
+
         return redirect(routes.Application.index());
     }
 
@@ -84,8 +91,98 @@ public class Forms extends Controller {
         return redirect(routes.Application.index());
     }
 
+    /**
+     * Updates a Presentation with given information.
+     * @param id the presentation to update
+     * @param name
+     * @param presenter
+     * @param description
+     * @param rank
+     * @return
+     */
+    private static Boolean updatePresentation(Long id, String name, String presenter, String description, Integer rank) {
+
+        // Check that we have valid input
+        if(isNull(id) || isNull(rank) || isBlank(name) || isBlank(presenter) || isBlank(description))
+        {
+            return false;
+        }
+
+        // Get the presentation object
+        Presentation presentation = Presentation.find.byId(id);
+
+        if(presentation == null)
+        {
+            return false;
+        }
+
+        // Update fields
+        presentation.name = name;
+        presentation.presenter = presenter;
+        presentation.description = description;
+        presentation.rank = rank;
+
+        // Update db and return
+        Ebean.update(presentation);
+        return true;
+    }
+
     private static boolean isNull(Object object)
     {
         return object == null;
+    }
+
+    /**
+     * Gets a String from DynamicForm
+     * @param form
+     * @param key
+     * @return
+     */
+    private static String getString(DynamicForm form, String key)
+    {
+        String string = form.get(key);
+        if(StringUtils.isNotBlank(string))
+        {
+            return string;
+        } else
+        {
+            return "";
+        }
+    }
+
+    /**
+     * Gets a Long from DynamicForm
+     * @param form
+     * @param key
+     * @return
+     */
+    private static Long getLong(DynamicForm form, String key)
+    {
+        Long number = null;
+        try {
+            number = Long.parseLong(form.get(key));
+        } catch (Exception e)
+        {
+            // Nothing
+        }
+        return number;
+    }
+
+    /**
+     * Gets a Integer from DynamicForm
+     * @param form
+     * @param key
+     * @return
+     */
+    private static Integer getInteger(DynamicForm form, String key)
+    {
+        Integer number = null;
+        try {
+            number = Integer.parseInt(form.get(key));
+        } catch (Exception e)
+        {
+            // Nothing
+        }
+        return number;
     }
 }
