@@ -23,14 +23,14 @@ public class Forms extends Controller {
      * @return redirect to index
      */
     public static Result savePresentation() {
-        DynamicForm requestData = form().bindFromRequest();
+        DynamicForm form = form().bindFromRequest();
 
-        String name = getString(requestData, "name");
-        String presenter = getString(requestData, "presenter");
-        String description = getString(requestData, "description");
-        Long slotId = getLong(requestData, "slot");
-        Long trackId = getLong(requestData, "track");
-        Integer rank = getInteger(requestData, "rank");
+        String name = getString(form, "name");
+        String presenter = getString(form, "presenter");
+        String description = getString(form, "description");
+        Long slotId = getLong(form, "slot");
+        Long trackId = getLong(form, "track");
+        Integer rank = getInteger(form, "rank");
 
         if(isBlank(name) || isBlank(presenter) || isBlank(description) || isNull(slotId) || isNull(trackId) || isNull(rank))
         {
@@ -53,9 +53,47 @@ public class Forms extends Controller {
      */
     public static Result editPresentation()
     {
-        flash("form_result", "Edit button clicked");
+        DynamicForm form = form().bindFromRequest();
+
+        String name = getString(form, "name");
+        String presenter = getString(form, "presenters");
+        String description = getString(form, "abstract");
+        Integer rank = getInteger(form, "rank");
+        Long id = getLong(form, "presentationId");
+
+        Boolean success = updatePresentation(id, name, presenter, description, rank);
+        if(!success)
+        {
+            flash("form_result", "Could not update presentation, missing data");
+        }
 
         return redirect(routes.Application.index());
+    }
+
+    private static Boolean updatePresentation(Long id, String name, String presenter, String description, Integer rank) {
+
+        // Check that we have valid input
+        if(isNull(id) || isNull(rank) || isBlank(name) || isBlank(presenter) || isBlank(description))
+        {
+            return false;
+        }
+
+        // Get the presentation object
+        Presentation presentation = Presentation.find.byId(id);
+
+        if(presentation == null)
+        {
+            return false;
+        }
+
+        presentation.name = name;
+        presentation.presenter = presenter;
+        presentation.description = description;
+        presentation.rank = rank;
+
+        Ebean.update(presentation);
+
+        return true;
     }
 
     /**
