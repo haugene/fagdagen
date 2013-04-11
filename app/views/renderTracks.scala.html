@@ -1,9 +1,8 @@
 @(tracks: List[models.Track])
-
-    <div class="offset2 span9 trackBg" style="margin-top: 30px" id="tracks">
-            @for(track <- tracks) {
-            <div class="span4 trackHeader@track.getRelativeRanking()">
-                @track.name
-            </div>
-            }
-    </div>
+<div class="span12 trackBg" id="tracks">
+        @for(track <- tracks) {
+        <div class="span4 trackHeader@track.getRelativeRanking()">
+            @track.name
+        </div>
+        }
+</div>

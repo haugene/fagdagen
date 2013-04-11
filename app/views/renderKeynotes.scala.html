@@ -2,21 +2,21 @@
 
 <!-- Render presentations, they're keynotes -->
 @for(presentation <- presentations) {
-<div class="trackKeynote">
-    <div class="headline keynoteTrack@presentation.track.getRelativeRanking">
-        @presentation.name
+    <div class="trackColor@presentation.track.getRelativeRanking trackKeynote">
+        <div class="headline keynoteTrack@presentation.track.getRelativeRanking">
+            @presentation.name
+        </div>
+        <div class="presenter">
+            @presentation.presenter
+        </div>
+        @presentation.description
+        <!-- Add edit buttons if user is admin -->
+        @if(admin) {
+           @editPresentationControls(presentation)
+        }
+        <!--  Add edit presentation modal if user is admin -->
+        @if(admin) {
+            @modals.editPresentationModal(presentation)
+        }
     </div>
-    <div class="presenter">
-        @presentation.presenter
-    </div>
-    @presentation.description
-    <!-- Add edit buttons if user is admin -->
-    @if(admin) {
-       @editPresentationControls(presentation)
-    }
-    <!--  Add edit presentation modal if user is admin -->
-    @if(admin) {
-        @modals.editPresentationModal(presentation)
-    }
-</div>
 }
