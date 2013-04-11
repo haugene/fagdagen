@@ -1,15 +1,12 @@
 @(slot: Slot, tracks: List[models.Track], lastSlot: models.Slot, admin: Boolean)
 
 <!-- Render presentations -->
-<div class="row-fluid">
     @for(track <- tracks) {
-        <div class="span3">
+        <div class="span4">
             <div>
                 @for(presentation <- slot.presentations) {
                     @if(presentation.track.getRelativeRanking == track.getRelativeRanking) {
-                        <div class="container">
-                        <div class="bgbg">hello</div>
-                        <div class='presentation pres @{if(presentation.slot.equals(lastSlot)) "trackEnd"}'>
+                        <div class='presentation pres  @{if(presentation.slot.equals(lastSlot)) "trackEnd"}'>
                             <div class="headline underline">
                                 @presentation.name
                             </div>
@@ -22,7 +19,6 @@
                         @if(admin) {
                             @editPresentationControls(presentation)
                         }
-                        </div>
                         </div>
                         <!--  Add edit presentation modal if user is admin -->
                         @if(admin) {
@@ -42,4 +38,3 @@
             }
         </div>
     }
-</div>

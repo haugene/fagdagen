@@ -1,13 +1,9 @@
 @(tracks: List[models.Track])
 
-<div class="row-fluid" style="margin-top: 30px" id="tracks">
-    <div class="offset2 span9 trackBg">
-        <div class="row-fluid">
+    <div class="offset2 span9 trackBg" style="margin-top: 30px" id="tracks">
             @for(track <- tracks) {
-            <div class="span3 trackHeader@track.getRelativeRanking()">
+            <div class="span4 trackHeader@track.getRelativeRanking()">
                 @track.name
             </div>
             }
-        </div>
     </div>
-</div>
