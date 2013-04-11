@@ -4,26 +4,24 @@
     @for(track <- tracks) {
         <div class="span4">
             <div>
-                @for(presentation <- slot.presentations) {
-                    @if(presentation.track.getRelativeRanking == track.getRelativeRanking) {
-                        <div class='presentation  @{if(presentation.slot.equals(lastSlot)) "trackEnd"}'>
-                            <div class="headline underline">
-                                @presentation.name
-                            </div>
-                            <div class="presenter">
-                                @presentation.presenter
-                            </div>
-                            @presentation.description
-
-                        <!-- Add edit buttons if user is admin -->
-                        @if(admin) {
-                            @editPresentationControls(presentation)
-                        }
+                @for(presentation <- slot.getPresentations(track)) {
+                    <div class='presentation  @{if(presentation.slot.equals(lastSlot)) "trackEnd"}'>
+                        <div class="headline underline">
+                            @presentation.name
                         </div>
-                        <!--  Add edit presentation modal if user is admin -->
-                        @if(admin) {
-                            @modals.editPresentationModal(presentation)
-                        }
+                        <div class="presenter">
+                            @presentation.presenter
+                        </div>
+                        @presentation.description
+
+                    <!-- Add edit buttons if user is admin -->
+                    @if(admin) {
+                        @editPresentationControls(presentation)
+                    }
+                    </div>
+                    <!--  Add edit presentation modal if user is admin -->
+                    @if(admin) {
+                        @modals.editPresentationModal(presentation)
                     }
                 }
             </div>

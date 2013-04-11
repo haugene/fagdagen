@@ -53,6 +53,21 @@ public class Slot implements Comparable<Slot>{
         return allSlots;
     }
 
+    public List<Presentation> getPresentations(Track track) {
+
+        List<Presentation> presentations = new ArrayList<Presentation>();
+
+        // Loop through our presentations and add those who belong to given track
+        for(Presentation presentation: this.presentations) {
+            if(track.id.equals(presentation.track.id)) {
+                presentations.add(presentation);
+            }
+        }
+
+        Collections.sort(presentations);
+        return presentations;
+    }
+
     @Override
     public int compareTo(Slot that) {
         return this.startTime.compareTo(that.startTime);
