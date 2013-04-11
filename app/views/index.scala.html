@@ -55,6 +55,7 @@
                         @renderSlot(slot)
                     </div>
                     <div class="span9 trackBg">
+                        <!-- Rendering for different SlotTypes(presentations, keynote, break) -->
                         @if(slot.isBreak()) {
                             @renderBreak()
                         }
