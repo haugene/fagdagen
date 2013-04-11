@@ -1,0 +1,28 @@
+@media (max-width: 767px) and (orientation:landscape) {
+  .visible-landscape {
+    display: inherit !important ;
+  }
+
+  .visible-portrait {
+    display: none !important;
+  }
+}
+
+@media (max-width: 767px) and (orientation:portrait) {
+  .visible-landscape {
+    display: none !important;
+  }
+  .visible-portrait {
+    display: inherit !important;
+  }
+}
+
+@media (min-width: 768px) {
+  .visible-landscape {
+    display: inherit !important ;
+  }
+
+  .visible-portrait {
+    display: none !important;
+  }
+}

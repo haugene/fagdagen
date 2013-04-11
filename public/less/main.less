@@ -4,6 +4,7 @@
 @import "textresources.less";
 @import "tracks.less";
 @import "presentations";
+@import "responsive";
 
 body {
   background-color: @background;
@@ -57,35 +58,6 @@ body {
   border-radius: 5px;
   border: 3px dashed darken(@addSlotColor, 30%);
   background-color: @addSlotColor;
-}
-
-@media (max-width: 767px) and (orientation:landscape) {
-  .visible-landscape {
-    display: inherit !important ;
-  }
-
-  .visible-portrait {
-    display: none !important;
-  }
-}
-
-@media (max-width: 767px) and (orientation:portrait) {
-  .visible-landscape {
-    display: none !important;
-  }
-  .visible-portrait {
-    display: inherit !important;
-  }
-}
-
-@media (min-width: 768px) {
-  .visible-landscape {
-    display: inherit !important ;
-  }
-
-  .visible-portrait {
-    display: none !important;
-  }
 }
 
 .rotate {

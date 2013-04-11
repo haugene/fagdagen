@@ -17,6 +17,9 @@ import static play.data.Form.form;
 
 /**
  * Controller for form post actions
+ *
+ * @author kristian.haugene
+ * @author daniel.nordstrom.carlsen
  */
 public class Forms extends Controller {
 
@@ -30,11 +33,12 @@ public class Forms extends Controller {
         String name = getString(form, "name");
         String presenter = getString(form, "presenter");
         String description = getString(form, "description");
+        String businessUnit = getString(form, "businessUnit");
         Long slotId = getLong(form, "slot");
         Long trackId = getLong(form, "track");
         Integer rank = getInteger(form, "rank");
 
-        if(isBlank(name) || isBlank(presenter) || isBlank(description) || isNull(slotId) || isNull(trackId) || isNull(rank))
+        if(isBlank(name) || isBlank(presenter) || isBlank(businessUnit) || isBlank(description) || isNull(slotId) || isNull(trackId) || isNull(rank))
         {
             flash("form_result", "Could not save presentation, there were empty fields");
         } else
@@ -42,7 +46,7 @@ public class Forms extends Controller {
             Slot slot = Slot.find.byId(slotId);
             Track track = Track.find.byId(trackId);
 
-            Presentation presentation = new Presentation(name, description, presenter, slot, track, rank);
+            Presentation presentation = new Presentation(name, description, presenter, businessUnit, slot, track, rank);
             Ebean.save(presentation);
         }
 
@@ -60,10 +64,11 @@ public class Forms extends Controller {
         String name = getString(form, "name");
         String presenter = getString(form, "presenters");
         String description = getString(form, "abstract");
+        String businessUnit = getString(form, "businessUnit");
         Integer rank = getInteger(form, "rank");
         Long id = getLong(form, "presentationId");
 
-        Boolean success = updatePresentation(id, name, presenter, description, rank);
+        Boolean success = updatePresentation(id, name, presenter, businessUnit, description, rank);
         if(!success)
         {
             flash("form_result", "Could not update presentation, missing data");
@@ -164,10 +169,10 @@ public class Forms extends Controller {
      * @param rank
      * @return
      */
-    private static Boolean updatePresentation(Long id, String name, String presenter, String description, Integer rank) {
+    private static Boolean updatePresentation(Long id, String name, String presenter, String businessUnit, String description, Integer rank) {
 
         // Check that we have valid input
-        if(isNull(id) || isNull(rank) || isBlank(name) || isBlank(presenter) || isBlank(description))
+        if(isNull(id) || isNull(rank) || isBlank(name) || isBlank(presenter) || isBlank(businessUnit)|| isBlank(description))
         {
             return false;
         }
@@ -183,6 +188,7 @@ public class Forms extends Controller {
         // Update fields
         presentation.name = name;
         presentation.presenter = presenter;
+        presentation.businessUnit = businessUnit;
         presentation.description = description;
         presentation.rank = rank;
 

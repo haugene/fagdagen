@@ -11,14 +11,26 @@
                 <label class="span2" for="rank">Rank</label>
             </div>
             <div class="controls controls-row">
-                <input type="text" class="span10" id="name" name="name" required value="@presentation.name"/>
+                <input type="text" class="span10" id="name" name="name" required autofocus value="@presentation.name"/>
                 <input type="number" class="span2" id="rank" name="rank" min="1" max="1000" required placeholder="e.q. 1" value="@presentation.rank"/>
             </div>
             <div class="controls controls-row">
                 <label class="span8" for="presenters">Presenters</label>
+                <label class="span4" for="businessUnit">Business unit</label>
             </div>
             <div class="controls controls-row">
-                <input type="text" class="span12" id="presenters" name="presenters" required value="@presentation.presenter"/>
+                <input type="text" class="span8" id="presenters" name="presenters" required value="@presentation.presenter"/>
+                <div class="span4">
+                    <select name="businessUnit" id="businessUnit" style="width: 100%" required value="@presentation.businessUnit">
+                        <option>AD&amp;M</option>
+                        <option>B-Tech</option>
+                        <option>BIM</option>
+                        <option>Bergen</option>
+                        <option>Fredrikstad</option>
+                        <option>Stavanger</option>
+                        <option>Trondheim</option>
+                    </select>
+                </div>
             </div>
             <div class="controls controls-row">
                 <label class="span12" for="abstract">Abstract</label>
