@@ -49,6 +49,8 @@ public class Presentation extends Model implements Comparable<Presentation> {
     @Constraints.Required
     public Integer rank;
 
+    private static final int SHORT_DESCRIPTION_LENGTH = 120;
+
     public Presentation() {
     }
 
@@ -71,5 +73,20 @@ public class Presentation extends Model implements Comparable<Presentation> {
     @Override
     public int compareTo(Presentation that) {
         return this.rank.compareTo(that.rank);
+    }
+
+    /**
+     * Retrieves a short version of the description, were length is specified by SHORT_DESCRIPTION_LENGTH.
+     *
+     * @return
+     */
+    public String getShortDescription() {
+        if(description.length() < SHORT_DESCRIPTION_LENGTH) {
+            return description;
+        }
+
+        String shortDescription = description.substring(0, SHORT_DESCRIPTION_LENGTH);
+
+        return shortDescription.substring(0, shortDescription.lastIndexOf(" ")) + "...";
     }
 }
