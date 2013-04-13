@@ -51,6 +51,7 @@ public class Presentation extends Model implements Comparable<Presentation> {
     public List<Vote> votes;
 
     private static final int SHORT_DESCRIPTION_LENGTH = 120;
+    private static final int SHORT_KEYNOTE_DESCRIPTION_LENGTH = 400;
 
     public Presentation() {
     }
@@ -82,6 +83,17 @@ public class Presentation extends Model implements Comparable<Presentation> {
      * @return
      */
     public String getShortDescription() {
+        // Return a longer description if it's a keynote
+        if(slot.containsKeynotes()) {
+            if(description.length() < SHORT_KEYNOTE_DESCRIPTION_LENGTH) {
+                return description;
+            }
+
+            String shortDescription = description.substring(0, SHORT_KEYNOTE_DESCRIPTION_LENGTH);
+
+            return shortDescription.substring(0, shortDescription.lastIndexOf(" ")) + "...";
+        }
+
         if(description.length() < SHORT_DESCRIPTION_LENGTH) {
             return description;
         }

@@ -40,27 +40,38 @@
                 <!-- Display slots and presentations -->
                 @for(slot <- slots) {
 
-                <!-- If this is not a break and the slot has no presentations, display delete slot option -->
-                @if(isAdmin) {
-                    @if(slot.hasNoPresentations() && !slot.isBreak()) {
-                     @deleteSlotField(slot)
+                    <!-- If this is not a break and the slot has no presentations, display delete slot option -->
+                    @if(isAdmin) {
+                        @if(slot.hasNoPresentations() && !slot.isBreak()) {
+                         @deleteSlotField(slot)
+                        }
                     }
-                }
 
-                <div class="row-fluid">
-                    <div class="span12">
-                        <!-- Rendering for different SlotTypes(presentations, keynote, break) -->
-                        @if(slot.isBreak()) {
-                            @renderBreak(slot, isAdmin)
-                        }
-                        @if(slot.containsKeynotes()) {
-                            @renderKeynotes(slot, isAdmin)
-                        }
-                        @if(slot.containsPresentations()) {
-                            @renderPresentations(slot, tracks, lastSlot, isAdmin)
-                        }
+                    @if(!slot.isBreak){
+                        <div class="time row-fluid">
+                                @slot.getFormattedStartTime
+                        </div>
+                    }
+                    <div class="row-fluid">
+                        <div class="span12">
+                            <!-- Rendering for different SlotTypes(presentations, keynote, break) -->
+                            @if(slot.isBreak()) {
+                                @renderBreak(slot, isAdmin)
+                            }
+                            @if(slot.containsKeynotes()) {
+                                @renderKeynotes(slot, isAdmin)
+                            }
+                            @if(slot.containsPresentations()) {
+                                @renderPresentations(slot, tracks, lastSlot, isAdmin)
+                            }
+                        </div>
                     </div>
-                </div>
+
+                    @if(!slot.isBreak){
+                        <div class="time row-fluid">
+                            @slot.getFormattedEndTime
+                        </div>
+                    }
                 }
 
                 @if(isAdmin) {
