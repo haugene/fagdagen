@@ -133,9 +133,6 @@ public class InitialDataUtil {
         // For now we only add one presentation per slot. They can all have rank 1.
         presentation.rank = 1;
 
-        // This is a keynote
-        presentation.isKeynote = true;
-
         // Save it
         Ebean.save(presentation);
     }
