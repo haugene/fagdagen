@@ -12,8 +12,11 @@
         <div class="presenter">
             @presentation.presenter
         </div>
-        @presentation.description
-        <!-- Add edit buttons if user is admin -->
+        @presentation.getShortDescription<br />
+        <a data-toggle="modal" href="#viewPresentationModal@presentation.id">Vis mer</a>
+        @modals.viewPresentationModal(presentation)
+
+    <!-- Add edit buttons if user is admin -->
         @if(admin) {
            @editPresentationControls(presentation)
         }

@@ -1,0 +1,16 @@
+@(presentation: Presentation)
+<div class="modal hide" id='viewPresentationModal@presentation.id'>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>@presentation.name</h3>
+        <div class="businessUnit">@presentation.businessUnit</div>
+        <div class="businessUnit">@presentation.presenter</div>
+        <div class="keynoteTrack@presentation.track.id presenter">@presentation.track.name</div>
+    </div>
+    <div class="modal-body">
+        @presentation.description
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" data-dismiss="modal" type="button">Lukk</button>
+    </div>
+</div>
