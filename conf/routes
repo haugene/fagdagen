@@ -18,5 +18,7 @@ POST    /forms/editPresentation             controllers.Forms.editPresentation()
 POST    /forms/saveSlot                     controllers.Forms.saveSlot()
 POST    /forms/deleteSlot                   controllers.Forms.deleteSlot()
 
+POST    /forms/saveKeynote                  controllers.Forms.saveKeynote()
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file                       controllers.Assets.at(path="/public", file)

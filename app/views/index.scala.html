@@ -52,7 +52,7 @@
                             @renderBreak()
                         }
                         @if(slot.containsKeynote()) {
-                            @renderKeynotes(slot.presentations, isAdmin)
+                            @renderKeynotes(slot, isAdmin)
                         }
                         @if(slot.containsPresentations()) {
                             @renderPresentations(slot, tracks, lastSlot, isAdmin)
