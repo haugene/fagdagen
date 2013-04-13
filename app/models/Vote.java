@@ -36,15 +36,15 @@ public class Vote extends Model {
      * @param presentation
      * @return
      */
-    public Vote getVoteForPresentation(String sessionId, Presentation presentation)
+    public static Vote getVoteForPresentation(String sessionId, Presentation presentation)
     {
-//        for(Vote vote : presentation.votes)
-//        {
-//            if (vote.sessionUuid.equals(sessionId))
-//            {
-//                return vote;
-//            }
-//        }
+        for(Vote vote : presentation.votes)
+        {
+            if (vote.sessionUuid.equals(sessionId))
+            {
+                return vote;
+            }
+        }
         return null;
     }
 
