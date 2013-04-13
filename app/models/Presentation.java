@@ -3,9 +3,7 @@ package models;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.*;
 
 /**
@@ -48,6 +46,9 @@ public class Presentation extends Model implements Comparable<Presentation> {
     // Rank within slot and track
     @Constraints.Required
     public Integer rank;
+
+    @OneToMany(mappedBy="presentation", cascade= CascadeType.ALL)
+    public List<Vote> votes;
 
     private static final int SHORT_DESCRIPTION_LENGTH = 120;
 

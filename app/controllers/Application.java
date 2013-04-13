@@ -4,18 +4,18 @@ import models.Slot;
 import models.Track;
 import org.apache.commons.lang3.StringUtils;
 import play.mvc.*;
-
-import utils.InitialDataUtil;
 import views.html.*;
-
 import java.util.List;
 
 public class Application extends Controller {
   
     public static Result index()
     {
-        List<Slot> slots = Slot.getSortedSlots();
+        // Ensure that we have a session ID
+        generateSessionIdIfEmpty();
 
+        // Get all slots and pass them to view
+        List<Slot> slots = Slot.getSortedSlots();
         return ok(index.render(Track.findAll(), slots, slots.get(slots.size()-1), isUserLoggedIn()));
     }
 
@@ -30,5 +30,19 @@ public class Application extends Controller {
             return true;
         }
         return  false;
+    }
+
+    public static void generateSessionIdIfEmpty(){
+        // Generate a unique id
+        String uuid=session("uuid");
+        if(uuid==null) {
+            uuid=java.util.UUID.randomUUID().toString();
+            session("uuid", uuid);
+        }
+    }
+
+    public static String getSessionId()
+    {
+        return session("uuid");
     }
 }
