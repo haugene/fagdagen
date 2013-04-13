@@ -41,15 +41,17 @@
                 @for(slot <- slots) {
 
                 <!-- If this is not a break and the slot has no presentations, display delete slot option -->
-                @if(slot.hasNoPresentations() && !slot.isBreak()) {
-                    @deleteSlotField(slot)
+                @if(isAdmin) {
+                    @if(slot.hasNoPresentations() && !slot.isBreak()) {
+                     @deleteSlotField(slot)
+                    }
                 }
 
                 <div class="row-fluid">
                     <div class="span12">
                         <!-- Rendering for different SlotTypes(presentations, keynote, break) -->
                         @if(slot.isBreak()) {
-                            @renderBreak()
+                            @renderBreak(slot, isAdmin)
                         }
                         @if(slot.containsKeynotes()) {
                             @renderKeynotes(slot, isAdmin)
@@ -74,6 +76,7 @@
                 </div>
             </div>
         </div>
+
 
         @deleteSlotField(slot: models.Slot) = {
         <div class="row-fluid">
