@@ -98,8 +98,13 @@ public class Forms extends Controller {
         String businessUnit = getString(form, "businessUnit");
         Integer rank = getInteger(form, "rank");
         Long id = getLong(form, "presentationId");
+        Long trackId = getLong(form, "track");
+        Long slotId = getLong(form, "slot");
 
-        Boolean success = updatePresentation(id, name, presenter, businessUnit, description, rank);
+        System.out.println(trackId);
+        System.out.println(slotId);
+
+        Boolean success = updatePresentation(id, name, presenter, businessUnit, description, rank, trackId, slotId);
         if(!success)
         {
             flash("form_result", "Could not update presentation, missing data");
@@ -215,19 +220,24 @@ public class Forms extends Controller {
         return SlotType.PRESENTATION;
     }
 
+
     /**
      * Updates a Presentation with given information.
+     *
      * @param id the presentation to update
      * @param name
      * @param presenter
+     * @param businessUnit
      * @param description
      * @param rank
+     * @param trackId
+     * @param slotId
      * @return
      */
-    private static Boolean updatePresentation(Long id, String name, String presenter, String businessUnit, String description, Integer rank) {
+    private static Boolean updatePresentation(Long id, String name, String presenter, String businessUnit, String description, Integer rank, Long trackId, Long slotId) {
 
         // Check that we have valid input
-        if(isNull(id) || isNull(rank) || isBlank(name) || isBlank(presenter) || isBlank(businessUnit)|| isBlank(description))
+        if(isNull(id, rank, trackId, slotId) || isBlank(name) || isBlank(presenter) || isBlank(businessUnit)|| isBlank(description))
         {
             return false;
         }
@@ -235,7 +245,11 @@ public class Forms extends Controller {
         // Get the presentation object
         Presentation presentation = Presentation.find.byId(id);
 
-        if(presentation == null)
+        // Get slot and track
+        Track track = Track.find.byId(trackId);
+        Slot slot = Slot.find.byId(slotId);
+
+        if(isNull(presentation, track, slot))
         {
             return false;
         }
@@ -246,6 +260,8 @@ public class Forms extends Controller {
         presentation.businessUnit = businessUnit;
         presentation.description = description;
         presentation.rank = rank;
+        presentation.track = track;
+        presentation.slot = slot;
 
         // Update db and return
         Ebean.update(presentation);
@@ -291,9 +307,21 @@ public class Forms extends Controller {
         return true;
     }
 
-    private static boolean isNull(Object object)
+    /**
+     * Returns true if any of the objects passed is null
+     * @param objects
+     * @return
+     */
+    private static boolean isNull(Object... objects)
     {
-        return object == null;
+        for(Object object : objects)
+        {
+            if (object == null){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
