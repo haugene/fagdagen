@@ -1,7 +1,7 @@
 @(slot: models.Slot, admin: Boolean)
 
 <!-- Render presentations, they're keynotes -->
-@for(presentation <- slot.presentations) {
+@for(presentation <- slot.sortedPresentations()) {
     <div class="trackColor@presentation.track.getRelativeRanking trackKeynote">
         <div class="headline keynoteTrack@presentation.track.getRelativeRanking">
             @presentation.name

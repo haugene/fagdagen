@@ -68,6 +68,11 @@ public class Slot implements Comparable<Slot>{
         return presentations;
     }
 
+    public List<Presentation> sortedPresentations(){
+        Collections.sort(presentations);
+        return presentations;
+    }
+
     @Override
     public int compareTo(Slot that) {
         return this.startTime.compareTo(that.startTime);
