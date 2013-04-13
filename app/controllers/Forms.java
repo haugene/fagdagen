@@ -11,8 +11,6 @@ import play.data.DynamicForm;
 import play.mvc.Controller;
 import play.mvc.Result;
 import static org.apache.commons.lang3.StringUtils.isBlank;
-
-import static org.apache.commons.lang3.StringUtils.isNotBlank;
 import static play.data.Form.form;
 
 /**

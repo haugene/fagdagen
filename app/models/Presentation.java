@@ -3,9 +3,7 @@ package models;
 import play.data.validation.Constraints;
 import play.db.ebean.Model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.util.*;
 
 /**
@@ -49,6 +47,9 @@ public class Presentation extends Model implements Comparable<Presentation> {
     @Constraints.Required
     public Integer rank;
 
+    @OneToMany(mappedBy="presentation", cascade= CascadeType.ALL)
+    public List<Vote> votes;
+
     private static final int SHORT_DESCRIPTION_LENGTH = 120;
     private static final int SHORT_KEYNOTE_DESCRIPTION_LENGTH = 400;
 
@@ -64,9 +65,6 @@ public class Presentation extends Model implements Comparable<Presentation> {
         this.track = track;
         this.rank = rank;
     }
-
-    // Is this a presentation a keynote?(common for all tracks)
-    public boolean isKeynote = false;
 
     // Create a Finder for Presentation objects
     public static Finder<Long, Presentation> find = new Finder(Long.class, Presentation.class);
