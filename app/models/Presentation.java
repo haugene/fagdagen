@@ -66,9 +66,6 @@ public class Presentation extends Model implements Comparable<Presentation> {
         this.rank = rank;
     }
 
-    // Is this a presentation a keynote?(common for all tracks)
-    public boolean isKeynote = false;
-
     // Create a Finder for Presentation objects
     public static Finder<Long, Presentation> find = new Finder(Long.class, Presentation.class);
 
