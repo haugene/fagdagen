@@ -42,7 +42,7 @@ public class Admin extends Controller {
     public static Result logout() {
         session().clear();
         flash("success", "You've been logged out");
-        return redirect(routes.Admin.login());
+        return redirect(routes.Application.index());
     }
 
 }
