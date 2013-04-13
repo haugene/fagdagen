@@ -99,4 +99,20 @@ public class Presentation extends Model implements Comparable<Presentation> {
 
         return shortDescription.substring(0, shortDescription.lastIndexOf(" ")) + "...";
     }
+
+    public Integer getNumberOfVotes()
+    {
+        return votes.size();
+    }
+
+    public Double getAverageVote()
+    {
+        Double total = 0d;
+        for(Vote vote : votes)
+        {
+            total += vote.rating;
+        }
+
+        return total / votes.size();
+    }
 }
