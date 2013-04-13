@@ -3,11 +3,11 @@
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h3>@presentation.name</h3>
-        <div class="businessUnit">@presentation.businessUnit</div>
-        <div class="businessUnit">@presentation.presenter</div>
-        <div class="keynoteTrack@presentation.track.id presenter">@presentation.track.name</div>
+        <span class="businessUnit">@presentation.businessUnit</span> -
+        <span class="businessUnit">@presentation.presenter</span> -
+        <span class="keynoteTrack@presentation.track.id presenter">@presentation.track.name</span>
     </div>
-    <div class="modal-body">
+    <div class="modal-body" style="min-height: 170px">
         @presentation.description
     </div>
     <div class="modal-footer">
