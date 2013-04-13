@@ -1,0 +1,44 @@
+@(slot: Slot)
+<div class="modal hide" id='newKeynoteModal@slot.id'>
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>New keynote</h3>
+    </div>
+    @helper.form(routes.Forms.saveKeynote, 'class -> "form", 'style -> "margin-bottom: 0px") {
+        <div class="modal-body">
+            <div class="controls controls-row">
+                <label class="span10" for="name">Name</label>
+                <label class="span2" for="rank">Rank</label>
+            </div>
+            <div class="controls controls-row">
+                <input type="text" class="span10" name="name" id="name" autofocus required>
+                <input type="number" class="span2" name="rank" id="rank" min="1" max="1000" required placeholder="e.q. 1" />
+            </div>
+            <div class="controls controls-row">
+                <label class="span8" for="presenter">Presenters</label>
+                <label class="span4" for="track">Track</label>
+            </div>
+            <div class="controls controls-row">
+                <input type="text" class="span8" name="presenter" id="presenter" required />
+                <div class="span4">
+                    <select name="track" id="track" style="width: 100%" required>
+                        @for(track <- Track.findAll()){
+                            <option value='@track.id'>@track.name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="controls controls-row">
+                <label class="span12" for="abstract">Abstract</label>
+            </div>
+            <div class="controls controls-row">
+                <textarea class="span12" rows="10" name="description" id="abstract" required></textarea>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#" data-dismiss="modal" class="btn"> <i class="icon-remove icon-black"></i> Cancel</a>
+            <button type="submit" class="btn btn-success"> <i class="icon-check icon-white"></i> Save changes</button>
+        </div>
+        <input type="text" value="@slot.id" id="slot" style="display: none" name="slot" />
+    }
+</div>

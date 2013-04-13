@@ -53,6 +53,33 @@ public class Forms extends Controller {
         return redirect(routes.Application.index());
     }
 
+    public static Result saveKeynote()
+    {
+        DynamicForm form = form().bindFromRequest();
+
+        String name = getString(form, "name");
+        String presenter = getString(form, "presenter");
+        String description = getString(form, "description");
+        Long slotId = getLong(form, "slot");
+        Long trackId = getLong(form, "track");
+        Integer rank = getInteger(form, "rank");
+
+        if(isBlank(name) || isBlank(presenter) || isBlank(description) || isNull(slotId) || isNull(trackId) || isNull(rank))
+        {
+            flash("form_result", "Could not save keynote, there were empty fields");
+        } else
+        {
+            Slot slot = Slot.find.byId(slotId);
+            Track track = Track.find.byId(trackId);
+
+            // Save presentation with blank businessUnit, this is a keynote
+            Presentation presentation = new Presentation(name, description, presenter, "", slot, track, rank);
+            Ebean.save(presentation);
+        }
+
+        return redirect(routes.Application.index());
+    }
+
     /**
      * Reads a HTML form dynamically. Retrieves fields for a presentation, and updates corresponding entry in the database.
      * @return redirect to index

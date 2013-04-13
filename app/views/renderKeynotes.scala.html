@@ -1,7 +1,7 @@
-@(presentations: List[models.Presentation], admin: Boolean)
+@(slot: models.Slot, admin: Boolean)
 
 <!-- Render presentations, they're keynotes -->
-@for(presentation <- presentations) {
+@for(presentation <- slot.presentations) {
     <div class="trackColor@presentation.track.getRelativeRanking trackKeynote">
         <div class="headline keynoteTrack@presentation.track.getRelativeRanking">
             @presentation.name
@@ -25,4 +25,14 @@
             @modals.editPresentationModal(presentation)
         }
     </div>
+}
+
+<!-- Add new presentation button if user is admin -->
+@if(admin) {
+<div class="addPresentation text-center">
+    <a class="btn btn" href='#newKeynoteModal@slot.id' data-toggle="modal">
+        <i class="icon-plus"></i> Add new keynote
+    </a>
+</div>
+@modals.newKeynoteModal(slot)
 }
