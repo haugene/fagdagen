@@ -101,37 +101,10 @@ public class Forms extends Controller {
         Long trackId = getLong(form, "track");
         Long slotId = getLong(form, "slot");
 
-        System.out.println(trackId);
-        System.out.println(slotId);
-
         Boolean success = updatePresentation(id, name, presenter, businessUnit, description, rank, trackId, slotId);
         if(!success)
         {
             flash("form_result", "Could not update presentation, missing data");
-        }
-
-        return redirect(routes.Application.index());
-    }
-
-    /**
-     * Reads a HTML form dynamically. Retrieves fields for a keynote, and updates corresponding entry in the database.
-     * @return redirect to index
-     */
-    public static Result editKeynote()
-    {
-        DynamicForm form = form().bindFromRequest();
-
-        String name = getString(form, "name");
-        String presenter = getString(form, "presenters");
-        String description = getString(form, "abstract");
-        Long trackId = getLong(form, "track");
-        Integer rank = getInteger(form, "rank");
-        Long id = getLong(form, "keynoteId");
-
-        Boolean success = updateKeynote(id, name, presenter, trackId, description, rank);
-        if(!success)
-        {
-            flash("form_result", "Could not update keynote, missing data");
         }
 
         return redirect(routes.Application.index());
@@ -262,45 +235,6 @@ public class Forms extends Controller {
         presentation.rank = rank;
         presentation.track = track;
         presentation.slot = slot;
-
-        // Update db and return
-        Ebean.update(presentation);
-        return true;
-    }
-
-    /**
-     * Updates a keynote given by id, updates given fields
-     * @param id the id of the keynote to update
-     * @param name
-     * @param presenter
-     * @param trackId
-     * @param description
-     * @param rank
-     * @return
-     */
-    private static Boolean updateKeynote(Long id, String name, String presenter, Long trackId, String description, Integer rank) {
-
-        // Check that we have valid input
-        if(isNull(id) || isNull(rank) || isBlank(name) || isBlank(presenter) || isNull(trackId)|| isBlank(description))
-        {
-            return false;
-        }
-
-        // Get the presentation and track objects
-        Presentation presentation = Presentation.find.byId(id);
-        Track track = Track.find.byId(trackId);
-
-        if(presentation == null || track == null)
-        {
-            return false;
-        }
-
-        // Update fields
-        presentation.name = name;
-        presentation.presenter = presenter;
-        presentation.description = description;
-        presentation.rank = rank;
-        presentation.track = track;
 
         // Update db and return
         Ebean.update(presentation);
