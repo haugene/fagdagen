@@ -22,13 +22,13 @@
                 <input type="text" class="span8" id="presenters" name="presenters" required value="@presentation.presenter"/>
                 <div class="span4">
                     <select name="businessUnit" id="businessUnit" style="width: 100%" required value="@presentation.businessUnit">
-                        <option>AD&amp;M</option>
-                        <option>B-Tech</option>
-                        <option>BIM</option>
-                        <option>Bergen</option>
-                        <option>Fredrikstad</option>
-                        <option>Stavanger</option>
-                        <option>Trondheim</option>
+                        <option id="AD&amp;M">AD&amp;M</option>
+                        <option @{if(presentation.businessUnit.equals("B-Tech")) "selected"} id="B-Tech">B-Tech</option>
+                        <option @{if(presentation.businessUnit.equals("BIM")) "selected"} id="BIM">BIM</option>
+                        <option @{if(presentation.businessUnit.equals("Bergen")) "selected"} id="Bergen">Bergen</option>
+                        <option @{if(presentation.businessUnit.equals("Fredrikstad")) "selected"} id="Fredrikstad">Fredrikstad</option>
+                        <option @{if(presentation.businessUnit.equals("Stavanger")) "selected"} id="Stavanger">Stavanger</option>
+                        <option @{if(presentation.businessUnit.equals("Trondheim")) "selected"} id="Trondheim">Trondheim</option>
                     </select>
                 </div>
             </div>
