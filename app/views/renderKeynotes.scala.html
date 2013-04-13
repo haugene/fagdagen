@@ -6,9 +6,6 @@
         <div class="headline keynoteTrack@presentation.track.getRelativeRanking">
             @presentation.name
         </div>
-        <div class="businessUnit">
-            @presentation.businessUnit
-        </div>
         <div class="presenter">
             @presentation.presenter
         </div>
@@ -22,7 +19,7 @@
         }
         <!--  Add edit presentation modal if user is admin -->
         @if(admin) {
-            @modals.editPresentationModal(presentation)
+            @modals.editKeynoteModal(presentation)
         }
     </div>
 }

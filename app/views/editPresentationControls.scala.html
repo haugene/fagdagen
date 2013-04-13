@@ -6,9 +6,20 @@
             <button type="submit" class="btn btn-danger">
                 <i class="icon-trash icon-white"></i> Delete
             </button>
-            <a class="btn btn-success" href="#editPresentationModal@presentation.id" data-toggle="modal">
-                <i class="icon-edit icon-white"></i> Edit
-            </a>
+
+            @if(presentation.slot.containsPresentations()){
+                <a class="btn btn-success" href="#editPresentationModal@presentation.id" data-toggle="modal">
+                    <i class="icon-edit icon-white"></i> Edit
+                </a>
+            }
+            @if(presentation.slot.containsKeynotes()){
+                <a class="btn btn-success" href="#editKeynoteModal@presentation.id" data-toggle="modal">
+                    <i class="icon-edit icon-white"></i> Edit
+                </a>
+            }
+
+
+
         }
     </div>
 </div>

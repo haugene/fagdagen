@@ -99,7 +99,7 @@ public class Slot implements Comparable<Slot>{
         return SlotType.BREAK.equals(slotType);
     }
 
-    public Boolean containsKeynote()
+    public Boolean containsKeynotes()
     {
         return SlotType.KEYNOTE.equals(slotType);
     }
