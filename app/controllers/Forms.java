@@ -98,35 +98,13 @@ public class Forms extends Controller {
         String businessUnit = getString(form, "businessUnit");
         Integer rank = getInteger(form, "rank");
         Long id = getLong(form, "presentationId");
+        Long trackId = getLong(form, "track");
+        Long slotId = getLong(form, "slot");
 
-        Boolean success = updatePresentation(id, name, presenter, businessUnit, description, rank);
+        Boolean success = updatePresentation(id, name, presenter, businessUnit, description, rank, trackId, slotId);
         if(!success)
         {
             flash("form_result", "Could not update presentation, missing data");
-        }
-
-        return redirect(routes.Application.index());
-    }
-
-    /**
-     * Reads a HTML form dynamically. Retrieves fields for a keynote, and updates corresponding entry in the database.
-     * @return redirect to index
-     */
-    public static Result editKeynote()
-    {
-        DynamicForm form = form().bindFromRequest();
-
-        String name = getString(form, "name");
-        String presenter = getString(form, "presenters");
-        String description = getString(form, "abstract");
-        Long trackId = getLong(form, "track");
-        Integer rank = getInteger(form, "rank");
-        Long id = getLong(form, "keynoteId");
-
-        Boolean success = updateKeynote(id, name, presenter, trackId, description, rank);
-        if(!success)
-        {
-            flash("form_result", "Could not update keynote, missing data");
         }
 
         return redirect(routes.Application.index());
@@ -215,19 +193,24 @@ public class Forms extends Controller {
         return SlotType.PRESENTATION;
     }
 
+
     /**
      * Updates a Presentation with given information.
+     *
      * @param id the presentation to update
      * @param name
      * @param presenter
+     * @param businessUnit
      * @param description
      * @param rank
+     * @param trackId
+     * @param slotId
      * @return
      */
-    private static Boolean updatePresentation(Long id, String name, String presenter, String businessUnit, String description, Integer rank) {
+    private static Boolean updatePresentation(Long id, String name, String presenter, String businessUnit, String description, Integer rank, Long trackId, Long slotId) {
 
         // Check that we have valid input
-        if(isNull(id) || isNull(rank) || isBlank(name) || isBlank(presenter) || isBlank(businessUnit)|| isBlank(description))
+        if(isNull(id, rank, trackId, slotId) || isBlank(name) || isBlank(presenter) || isBlank(businessUnit)|| isBlank(description))
         {
             return false;
         }
@@ -235,7 +218,11 @@ public class Forms extends Controller {
         // Get the presentation object
         Presentation presentation = Presentation.find.byId(id);
 
-        if(presentation == null)
+        // Get slot and track
+        Track track = Track.find.byId(trackId);
+        Slot slot = Slot.find.byId(slotId);
+
+        if(isNull(presentation, track, slot))
         {
             return false;
         }
@@ -246,6 +233,8 @@ public class Forms extends Controller {
         presentation.businessUnit = businessUnit;
         presentation.description = description;
         presentation.rank = rank;
+        presentation.track = track;
+        presentation.slot = slot;
 
         // Update db and return
         Ebean.update(presentation);
@@ -253,47 +242,20 @@ public class Forms extends Controller {
     }
 
     /**
-     * Updates a keynote given by id, updates given fields
-     * @param id the id of the keynote to update
-     * @param name
-     * @param presenter
-     * @param trackId
-     * @param description
-     * @param rank
+     * Returns true if any of the objects passed is null
+     * @param objects
      * @return
      */
-    private static Boolean updateKeynote(Long id, String name, String presenter, Long trackId, String description, Integer rank) {
-
-        // Check that we have valid input
-        if(isNull(id) || isNull(rank) || isBlank(name) || isBlank(presenter) || isNull(trackId)|| isBlank(description))
-        {
-            return false;
-        }
-
-        // Get the presentation and track objects
-        Presentation presentation = Presentation.find.byId(id);
-        Track track = Track.find.byId(trackId);
-
-        if(presentation == null || track == null)
-        {
-            return false;
-        }
-
-        // Update fields
-        presentation.name = name;
-        presentation.presenter = presenter;
-        presentation.description = description;
-        presentation.rank = rank;
-        presentation.track = track;
-
-        // Update db and return
-        Ebean.update(presentation);
-        return true;
-    }
-
-    private static boolean isNull(Object object)
+    private static boolean isNull(Object... objects)
     {
-        return object == null;
+        for(Object object : objects)
+        {
+            if (object == null){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

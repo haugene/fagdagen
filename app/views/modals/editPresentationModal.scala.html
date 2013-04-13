@@ -2,7 +2,7 @@
 <div class="modal hide" id="editPresentationModal@presentation.id">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3>Edit presentation</h3>
+        <h3>Edit</h3>
     </div>
     @helper.form(routes.Forms.editPresentation, 'class -> "form", 'style -> "margin-bottom: 0px") {
         <div class="modal-body">
@@ -22,13 +22,34 @@
                 <input type="text" class="span8" id="presenters" name="presenters" required value="@presentation.presenter"/>
                 <div class="span4">
                     <select name="businessUnit" id="businessUnit" style="width: 100%" required value="@presentation.businessUnit">
-                        <option id="AD&amp;M">AD&amp;M</option>
-                        <option @{if(presentation.businessUnit.equals("B-Tech")) "selected"} id="B-Tech">B-Tech</option>
-                        <option @{if(presentation.businessUnit.equals("BIM")) "selected"} id="BIM">BIM</option>
-                        <option @{if(presentation.businessUnit.equals("Bergen")) "selected"} id="Bergen">Bergen</option>
-                        <option @{if(presentation.businessUnit.equals("Fredrikstad")) "selected"} id="Fredrikstad">Fredrikstad</option>
-                        <option @{if(presentation.businessUnit.equals("Stavanger")) "selected"} id="Stavanger">Stavanger</option>
-                        <option @{if(presentation.businessUnit.equals("Trondheim")) "selected"} id="Trondheim">Trondheim</option>
+                        <option>AD&amp;M</option>
+                        <option @{if(presentation.businessUnit.equals("B-Tech")) "selected"} >B-Tech</option>
+                        <option @{if(presentation.businessUnit.equals("BIM")) "selected"} >BIM</option>
+                        <option @{if(presentation.businessUnit.equals("Bergen")) "selected"} >Bergen</option>
+                        <option @{if(presentation.businessUnit.equals("Fredrikstad")) "selected"} >Fredrikstad</option>
+                        <option @{if(presentation.businessUnit.equals("Stavanger")) "selected"} >Stavanger</option>
+                        <option @{if(presentation.businessUnit.equals("Trondheim")) "selected"} >Trondheim</option>
+                        <option @{if(presentation.businessUnit.equals("Annet")) "selected"} >Annet</option>
+                    </select>
+                </div>
+            </div>
+            <div class="controls controls-row">
+                <label class="span6" for="slot">Slot</label>
+                <label class="span6" for="track">Track</label>
+            </div>
+            <div class="controls controls-row">
+                <div class="span6">
+                    <select name="slot" id="slot" style="width: 100%" required>
+                        @for(slot <- Slot.getSortedSlots()){
+                            <option value='@slot.id' @{if(presentation.slot.id.equals(slot.id)) "selected"}>@slot.getFormattedStartTime() - @slot.getFormattedEndTime() </option>
+                        }
+                    </select>
+                </div>
+                <div class="span6">
+                    <select name="track" id="track" style="width: 100%" required>
+                        @for(track <- Track.findAll()){
+                            <option value='@track.id' @{if(presentation.track.id.equals(track.id)) "selected"}>@track.name</option>
+                        }
                     </select>
                 </div>
             </div>

@@ -3,23 +3,14 @@
     <div class="editAreaInner">
         @helper.form(routes.Forms.deletePresentation, 'style -> "margin: 0px") {
             <input type="text" style="display: none" value="@presentation.id" name="presentationId" />
+
             <button type="submit" class="btn btn-danger">
                 <i class="icon-trash icon-white"></i> Delete
             </button>
 
-            @if(presentation.slot.containsPresentations()){
-                <a class="btn btn-success" href="#editPresentationModal@presentation.id" data-toggle="modal">
-                    <i class="icon-edit icon-white"></i> Edit
-                </a>
-            }
-            @if(presentation.slot.containsKeynotes()){
-                <a class="btn btn-success" href="#editKeynoteModal@presentation.id" data-toggle="modal">
-                    <i class="icon-edit icon-white"></i> Edit
-                </a>
-            }
-
-
-
+            <a class="btn btn-success" href="#editPresentationModal@presentation.id" data-toggle="modal">
+                <i class="icon-edit icon-white"></i> Edit
+            </a>
         }
     </div>
 </div>
