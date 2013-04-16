@@ -3,6 +3,8 @@ package controllers;
 import play.mvc.*;
 import play.mvc.Http.*;
 
+import static play.mvc.Controller.flash;
+
 public class Secured extends Security.Authenticator {
 
     @Override
@@ -12,6 +14,7 @@ public class Secured extends Security.Authenticator {
 
     @Override
     public Result onUnauthorized(Context ctx) {
+        flash("form_result", "You need to be authorized to modify the contents");
         return redirect(routes.Application.index());
     }
 
