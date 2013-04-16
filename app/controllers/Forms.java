@@ -5,6 +5,7 @@ import domain.enums.SlotType;
 import models.Presentation;
 import models.Slot;
 import models.Track;
+import models.Vote;
 import org.apache.commons.lang3.StringUtils;
 import org.joda.time.DateTime;
 import play.data.DynamicForm;
@@ -180,6 +181,26 @@ public class Forms extends Controller {
             Slot slot = Slot.find.byId(id);
             Ebean.delete(slot);
         }
+        return redirect(routes.Application.index());
+    }
+
+    public static Result vote(Long presentationId, Integer rating)
+    {
+
+        Vote vote = Vote.getVoteForPresentation(Application.getSessionId(), Presentation.find.byId(presentationId));
+
+        if(vote == null)
+        {
+            // Create a new vote and save it
+            Vote newVote = new Vote(Presentation.find.byId(presentationId), rating, Application.getSessionId());
+            Ebean.save(newVote);
+        } else
+        {
+            // The user has already voted, update it
+            vote.rating = rating;
+            Ebean.update(vote);
+        }
+
         return redirect(routes.Application.index());
     }
 
