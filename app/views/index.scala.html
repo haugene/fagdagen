@@ -64,7 +64,7 @@
                                 @renderBreak(slot, isAdmin)
                             }
                             @if(slot.containsKeynotes()) {
-                                @renderKeynotes(slot, isAdmin)
+                                @renderKeynotes(slot, lastSlot, isAdmin)
                             }
                             @if(slot.containsPresentations()) {
                                 @renderPresentations(slot, lastSlot, isAdmin)
