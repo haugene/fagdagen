@@ -6,20 +6,19 @@
     </div>
     @helper.form(routes.Forms.saveKeynote, 'class -> "form", 'style -> "margin-bottom: 0px") {
         <div class="modal-body">
-            <div class="controls controls-row">
+            <div class="row-fluid">
                 <label class="span10" for="name">Name</label>
                 <label class="span2" for="rank">Rank</label>
             </div>
-            <div class="controls controls-row">
+            <div class="row-fluid">
                 <input type="text" class="span10" name="name" id="name" autofocus required>
                 <input type="number" class="span2" name="rank" id="rank" min="1" max="1000" required placeholder="e.q. 1" />
             </div>
-            <div class="controls controls-row">
-                <label class="span8" for="presenter">Presenters</label>
+            <div class="row-fluid">
                 <label class="span4" for="track">Track</label>
+                <label class="span7" for="presenter">Presenters</label>
             </div>
-            <div class="controls controls-row">
-                <input type="text" class="span8" name="presenter" id="presenter" required />
+            <div class="row-fluid">
                 <div class="span4">
                     <select name="track" id="track" style="width: 100%" required>
                         @for(track <- Track.findAll()){
@@ -27,11 +26,12 @@
                         }
                     </select>
                 </div>
+                <input type="text" class="span7" name="presenter" id="presenter" required />
             </div>
-            <div class="controls controls-row">
+            <div class="row-fluid">
                 <label class="span12" for="abstract">Abstract</label>
             </div>
-            <div class="controls controls-row">
+            <div class="row-fluid">
                 <textarea class="span12" rows="10" name="description" id="abstract" required></textarea>
             </div>
         </div>
