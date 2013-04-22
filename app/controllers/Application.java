@@ -1,7 +1,6 @@
 package controllers;
 
 import models.Slot;
-import models.Track;
 import org.apache.commons.lang3.StringUtils;
 import play.mvc.*;
 import views.html.*;
@@ -16,7 +15,7 @@ public class Application extends Controller {
 
         // Get all slots and pass them to view
         List<Slot> slots = Slot.getSortedSlots();
-        return ok(index.render(Track.findAll(), slots, slots.get(slots.size()-1), isUserLoggedIn()));
+        return ok(index.render(slots, slots.get(slots.size()-1), isUserLoggedIn()));
     }
 
     /**

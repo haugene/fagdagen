@@ -1,4 +1,4 @@
-@(tracks: List[models.Track], slots: List[models.Slot], lastSlot: models.Slot, isAdmin: Boolean)
+@(slots: List[models.Slot], lastSlot: models.Slot, isAdmin: Boolean)
 <!DOCTYPE html>
 
 <html>
@@ -35,7 +35,7 @@
                 }
 
                 <!-- Display tracks -->
-                @renderTracks(tracks)
+                @renderTracks()
 
                 <!-- Display slots and presentations -->
                 @for(slot <- slots) {
@@ -62,7 +62,7 @@
                                 @renderKeynotes(slot, isAdmin)
                             }
                             @if(slot.containsPresentations()) {
-                                @renderPresentations(slot, tracks, lastSlot, isAdmin)
+                                @renderPresentations(slot, lastSlot, isAdmin)
                             }
                         </div>
                     </div>

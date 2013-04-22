@@ -1,6 +1,6 @@
-@(slot: Slot, tracks: List[models.Track], lastSlot: models.Slot, admin: Boolean)
+@(slot: Slot, lastSlot: models.Slot, admin: Boolean)
 <!-- Render presentations -->
-@for(track <- tracks) {
+@for(track <- Track.findAll()) {
     <div class="span4">
         <div>
             @for(presentation <- slot.getPresentations(track)) {
