@@ -11,6 +11,8 @@ import org.joda.time.DateTime;
 import play.data.DynamicForm;
 import play.mvc.Controller;
 import play.mvc.Result;
+import play.mvc.Security;
+
 import static org.apache.commons.lang3.StringUtils.isBlank;
 import static play.data.Form.form;
 
@@ -20,6 +22,7 @@ import static play.data.Form.form;
  * @author kristian.haugene
  * @author daniel.nordstrom.carlsen
  */
+@Security.Authenticated(Secured.class)
 public class Forms extends Controller {
 
     /**
