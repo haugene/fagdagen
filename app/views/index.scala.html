@@ -57,21 +57,18 @@
                         </div>
                     }
 
-                    <div class="row-fluid">
-                        <div class="span12">
-                            <!-- Rendering for different SlotTypes(presentations, keynote, break) -->
-                            @if(slot.isBreak()) {
-                                @renderBreak(slot, isAdmin)
-                            }
-                            @if(slot.containsKeynotes()) {
-                                @renderKeynotes(slot, lastSlot, isAdmin)
-                            }
-                            @if(slot.containsPresentations()) {
-                                @renderPresentations(slot, lastSlot, isAdmin)
-                            }
-                        </div>
-                    </div>
+                    <!-- Rendering for different SlotTypes(presentations, keynote, break) -->
+                    @if(slot.isBreak()) {
+                        @renderBreak(slot, isAdmin)
+                    }
+                    @if(slot.containsKeynotes()) {
+                        @renderKeynotes(slot, lastSlot, isAdmin)
+                    }
+                    @if(slot.containsPresentations()) {
+                        @renderPresentations(slot, lastSlot, isAdmin)
+                    }
 
+                    <!-- Render end time if slot is not break -->
                     @if(!slot.isBreak){
                         <div class="time row-fluid">
                             @slot.getFormattedEndTime

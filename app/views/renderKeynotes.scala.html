@@ -1,4 +1,5 @@
 @(slot: models.Slot, lastSlot: models.Slot, admin: Boolean)
+<div class="row-fluid">
 
 <!-- Render presentations, they're keynotes -->
 @for(presentation <- slot.sortedPresentations()) {
@@ -33,3 +34,4 @@
 </div>
 @modals.newKeynoteModal(slot)
 }
+</div>
