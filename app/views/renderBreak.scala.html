@@ -1,6 +1,9 @@
 @(slot: Slot, admin: Boolean)
+<div class="row-fluid">
+<div class="span12">
 @if(admin) {
     @helper.form(routes.Forms.deleteSlot, 'class -> "break") {
+
             <input type="text" value="@slot.id" style="display: none" name="slotId" />
             <button type="submit" class="btn btn-danger"> Delete</button>
     }
@@ -9,3 +12,4 @@
     <div class="break">
     </div>
 }
+</div></div>

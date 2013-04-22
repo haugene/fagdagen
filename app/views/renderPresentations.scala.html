@@ -1,42 +1,61 @@
 @(slot: Slot, lastSlot: models.Slot, admin: Boolean)
+
 <!-- Render presentations -->
-@for(track <- Track.findAll()) {
+@for((presentation, index) <- utils.PresentationHelper.getSortedPresentations(slot).zipWithIndex){
+
+    @if(index % 3 == 0){
+        <div class="row-fluid">
+    }
+
     <div class="span4">
+        @if(presentation != null){
         <div>
-            @for(presentation <- slot.getPresentations(track)) {
-                <div class='trackColor@presentation.track.getRelativeRanking presentation  @{if(presentation.slot.equals(lastSlot)) "trackEnd"}'>
-                    <div class="headline underline">
-                        @presentation.name
-                    </div>
-                    <div class="businessUnit">
-                        @presentation.businessUnit
-                    </div>
-                    <div class="presenter">
-                        @presentation.presenter
-                    </div>
-                    @presentation.getShortDescription<br />
-                    <a data-toggle="modal" href="#viewPresentationModal@presentation.id">Vis mer</a>
-                    @modals.viewPresentationModal(presentation)
+            <div class='trackColor@presentation.track.getRelativeRanking presentation  @{if(presentation.slot.equals(lastSlot)) "trackEnd"}'>
+                <div class="headline underline">
+                    @presentation.name
+                </div>
+                <div class="businessUnit">
+                    @presentation.businessUnit
+                </div>
+                <div class="presenter">
+                    @presentation.presenter
+                </div>
+                @presentation.getShortDescription<br />
+                <a data-toggle="modal" href="#viewPresentationModal@presentation.id">Vis mer</a>
+                @modals.viewPresentationModal(presentation)
 
                 <!-- Add edit buttons if user is admin -->
                 @if(admin) {
                     @editPresentationControls(presentation)
                 }
-                </div>
-                <!--  Add edit presentation modal if user is admin -->
-                @if(admin) {
-                    @modals.editPresentationModal(presentation)
-                }
+            </div>
+            <!--  Add edit presentation modal if user is admin -->
+            @if(admin) {
+                @modals.editPresentationModal(presentation)
             }
         </div>
-        <!-- Add new presentation button if user is admin -->
-        @if(admin) {
+        }
+    </div>
+
+    @if(index % 3 == 2){
+        </div>
+    }
+}
+
+<!-- Add new presentation button if user is admin -->
+@if(admin) {
+    <div class="row-fluid"><div class="span12">
+    @for(track <- Track.findAll()){
+        <div class="span4">
+            <div class="clearer"></div>
             <div class="addPresentation text-center">
                 <a class="btn btn" href='#newPresentationModal@track.id@slot.id' data-toggle="modal">
                     <i class="icon-plus"></i> Add new presentation
                 </a>
             </div>
-            @modals.newPresentationModal(slot, track)
-        }
-    </div>
+        </div>
+        @modals.newPresentationModal(slot, track)
+    }
+    </div></div>
 }
+
