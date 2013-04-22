@@ -1,6 +1,5 @@
-@(tracks: List[models.Track])
 <div class="span12 trackBg" id="tracks">
-        @for(track <- tracks) {
+        @for(track <- Track.findAll()) {
         <div class="span4 trackHeader@track.getRelativeRanking()">
             @track.name
         </div>
